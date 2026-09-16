@@ -41,3 +41,37 @@ def test_doctor_reports_missing_file(tmp_path: Path) -> None:
 
     assert result.exit_code == 1
     assert "Configuration error" in result.output
+
+
+def test_data_check_accepts_fixtures() -> None:
+    fixtures = Path(__file__).parent / "fixtures"
+
+    result = runner.invoke(
+        app,
+        [
+            "data-check",
+            "--data-dir",
+            str(fixtures),
+            "--qrels",
+            str(fixtures / "qrels.tsv"),
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "Documents: 20" in result.output
+    assert "Evaluation queries: 5" in result.output
+    assert "Judgments: 8" in result.output
+
+
+def test_data_check_reports_missing_dataset(tmp_path: Path) -> None:
+    result = runner.invoke(
+        app,
+        [
+            "data-check",
+            "--data-dir",
+            str(tmp_path / "missing"),
+        ],
+    )
+
+    assert result.exit_code == 1
+    assert "Dataset error:" in result.output
