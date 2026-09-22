@@ -6,10 +6,15 @@ from zipfile import BadZipFile
 
 import typer
 import yaml
+from qdrant_client.http.exceptions import (
+    ResponseHandlingException,
+    UnexpectedResponse,
+)
 
 from retrieval_lab.config import load_config
 from retrieval_lab.data.download import download_scifact
 from retrieval_lab.data.loader import load_dataset
+from retrieval_lab.dense_runs import build_dense_run
 from retrieval_lab.evaluation import evaluate_run
 from retrieval_lab.runs import build_bm25_run, save_run
 
@@ -178,4 +183,62 @@ def evaluate(
     for name, value in report["aggregate"].items():
         typer.echo(f"{name}: {value:.4f}")
 
+    typer.echo(f"Output: {output}")
+
+
+@app.command("retrieve-dense")
+def retrieve_dense(
+    output: Annotated[
+        Path,
+        typer.Option(help="New JSON retrieval run."),
+    ],
+    qrels: Annotated[
+        Path,
+        typer.Option(help="Explicit qrels file selecting the queries."),
+    ],
+    data_dir: Annotated[
+        Path,
+        typer.Option(help="Directory containing corpus and queries."),
+    ] = Path("data/raw/scifact"),
+    config: Annotated[
+        Path,
+        typer.Option(help="Retrieval configuration."),
+    ] = Path("configs/smoke.yaml"),
+    model: Annotated[
+        Path,
+        typer.Option(help="Pinned model specification."),
+    ] = Path("configs/dense-model.json"),
+    qdrant_url: Annotated[
+        str,
+        typer.Option(help="Qdrant server URL."),
+    ] = "http://localhost:6333",
+) -> None:
+    """Retrieve documents using a frozen encoder and exact vector search."""
+    try:
+        if output.exists():
+            raise FileExistsError(
+                f"{output} already exists; choose another --output path"
+            )
+
+        settings = load_config(config)
+        run = build_dense_run(
+            data_dir,
+            qrels,
+            settings,
+            model,
+            qdrant_url,
+        )
+        save_run(run, output)
+    except (
+        OSError,
+        ValueError,
+        RuntimeError,
+        yaml.YAMLError,
+        ResponseHandlingException,
+        UnexpectedResponse,
+    ) as exc:
+        typer.echo(f"Dense retrieval error: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+
+    typer.echo("Dense run saved")
     typer.echo(f"Output: {output}")
