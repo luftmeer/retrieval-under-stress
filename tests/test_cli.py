@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from typer.testing import CliRunner
@@ -75,3 +76,97 @@ def test_data_check_reports_missing_dataset(tmp_path: Path) -> None:
 
     assert result.exit_code == 1
     assert "Dataset error:" in result.output
+
+
+def test_bm25_command_saves_reproducible_run(
+    tmp_path: Path,
+) -> None:
+    fixtures = Path(__file__).parent / "fixtures"
+    config = tmp_path / "config.yaml"
+    config.write_text("seed: 42\ntop_k: 3\n", encoding="utf-8")
+
+    common_args = [
+        "retrieve-bm25",
+        "--data-dir",
+        str(fixtures),
+        "--qrels",
+        str(fixtures / "qrels.tsv"),
+        "--config",
+        str(config),
+    ]
+
+    first_output = tmp_path / "first.json"
+    second_output = tmp_path / "second.json"
+
+    first = runner.invoke(
+        app,
+        [*common_args, "--output", str(first_output)],
+    )
+
+    second = runner.invoke(
+        app,
+        [*common_args, "--output", str(second_output)],
+    )
+
+    assert first.exit_code == 0, first.output
+    assert second.exit_code == 0, second.output
+    assert first_output.read_bytes() == second_output.read_bytes()
+
+    run = json.loads(first_output.read_text(encoding="utf-8"))
+
+    assert run["schema_version"] == 1
+    assert run["metadata"]["documents"] == 20
+    assert run["metadata"]["queries"] == 5
+    assert run["metadata"]["config"]["top_k"] == 3
+
+    assert set(run["results"]) == {
+        "q01",
+        "q02",
+        "q03",
+        "q04",
+        "q05",
+    }
+
+    for hits in run["results"].values():
+        assert [hit["rank"] for hit in hits] == [1, 2, 3]
+        assert len({hit["document_id"] for hit in hits}) == 3
+
+        scores = [hit["score"] for hit in hits]
+        assert scores == sorted(scores, reverse=True)
+
+
+def test_bm25_command_preserves_existing_output(tmp_path: Path) -> None:
+    output = tmp_path / "existing.json"
+    output.write_text("original content\n", encoding="utf-8")
+
+    result = runner.invoke(
+        app,
+        ["retrieve-bm25", "--output", str(output)],
+    )
+
+    assert result.exit_code == 1
+    assert "already exists" in result.output
+    assert output.read_text(encoding="utf-8") == "original content\n"
+
+
+def test_bm25_command_reports_missing_dataset(tmp_path: Path) -> None:
+    config = tmp_path / "config.yaml"
+    config.write_text("top_k: 3\n", encoding="utf-8")
+    output = tmp_path / "run.json"
+
+    result = runner.invoke(
+        app,
+        [
+            "retrieve-bm25",
+            "--data-dir",
+            str(tmp_path / "missing"),
+            "--config",
+            str(config),
+            "--output",
+            str(output),
+        ],
+    )
+
+    assert result.exit_code == 1
+    assert "Retrieval error:" in result.output
+    assert not output.exists()
