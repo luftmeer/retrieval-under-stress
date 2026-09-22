@@ -1,0 +1,110 @@
+import json
+from pathlib import Path
+
+import pytest
+
+from retrieval_lab.config import RunConfig
+from retrieval_lab.data.download import sha256_file
+from retrieval_lab.evaluation import evaluate_run
+from retrieval_lab.runs import build_bm25_run, save_run
+
+FIXTURES = Path(__file__).parent / "fixtures"
+
+
+@pytest.fixture
+def run_path(tmp_path: Path) -> Path:
+    run = build_bm25_run(
+        FIXTURES,
+        FIXTURES / "qrels.tsv",
+        RunConfig(top_k=3),
+    )
+    path = tmp_path / "run.json"
+    save_run(run, path)
+    return path
+
+
+def evaluate(path: Path, k: int = 3) -> dict:
+    return evaluate_run(
+        path,
+        FIXTURES,
+        FIXTURES / "qrels.tsv",
+        k,
+    )
+
+
+def test_report_includes_all_queries_and_source_hash(
+    run_path: Path,
+) -> None:
+    report = evaluate(run_path)
+
+    assert report["metadata"]["queries"] == 5
+    assert report["metadata"]["run_sha256"] == sha256_file(run_path)
+    assert set(report["aggregate"]) == {
+        "recall@3",
+        "mrr@3",
+        "ndcg@3",
+    }
+
+    rows = report["per_query"]
+
+    assert set(rows) == {"q01", "q02", "q03", "q04", "q05"}
+    assert report["aggregate"]["mrr@3"] == pytest.approx(
+        sum(row["rr"] for row in rows.values()) / len(rows)
+    )
+
+
+def test_empty_ranking_counts_as_zero(run_path: Path) -> None:
+    run = json.loads(run_path.read_text(encoding="utf-8"))
+    run["results"]["q01"] = []
+    run_path.write_text(json.dumps(run), encoding="utf-8")
+
+    report = evaluate(run_path)
+
+    assert report["metadata"]["queries"] == 5
+    assert report["per_query"]["q01"] == {
+        "recall": 0.0,
+        "rr": 0.0,
+        "ndcg": 0.0,
+    }
+
+
+@pytest.mark.parametrize(
+    ("problem", "message"),
+    [
+        ("hash", "hash mismatch"),
+        ("missing_query", "query IDs"),
+        ("duplicate", "duplicate"),
+        ("rank", "stored rank"),
+        ("unknown_document", "unknown document"),
+    ],
+)
+def test_invalid_runs_are_rejected(
+    run_path: Path,
+    problem: str,
+    message: str,
+) -> None:
+    run = json.loads(run_path.read_text(encoding="utf-8"))
+
+    if problem == "hash":
+        run["metadata"]["inputs"]["qrels"]["sha256"] = "wrong"
+    elif problem == "missing_query":
+        del run["results"]["q01"]
+    elif problem == "duplicate":
+        hits = run["results"]["q01"]
+        hits[1]["document_id"] = hits[0]["document_id"]
+    elif problem == "rank":
+        run["results"]["q01"][0]["rank"] = 2
+    elif problem == "unknown_document":
+        run["results"]["q01"][0]["document_id"] = "missing"
+
+    run_path.write_text(json.dumps(run), encoding="utf-8")
+
+    with pytest.raises(ValueError, match=message):
+        evaluate(run_path)
+
+
+def test_cutoff_cannot_exceed_retrieval_depth(
+    run_path: Path,
+) -> None:
+    with pytest.raises(ValueError, match="retrieval depth"):
+        evaluate(run_path, k=10)

@@ -170,3 +170,60 @@ def test_bm25_command_reports_missing_dataset(tmp_path: Path) -> None:
     assert result.exit_code == 1
     assert "Retrieval error:" in result.output
     assert not output.exists()
+
+
+def test_evaluate_command_saves_report(tmp_path: Path) -> None:
+    fixtures = Path(__file__).parent / "fixtures"
+    config = tmp_path / "config.yaml"
+    config.write_text("seed: 42\ntop_k: 3\n", encoding="utf-8")
+
+    run_path = tmp_path / "run.json"
+    report_path = tmp_path / "evaluation.json"
+
+    retrieval = runner.invoke(
+        app,
+        [
+            "retrieve-bm25",
+            "--data-dir",
+            str(fixtures),
+            "--qrels",
+            str(fixtures / "qrels.tsv"),
+            "--config",
+            str(config),
+            "--output",
+            str(run_path),
+        ],
+    )
+
+    assert retrieval.exit_code == 0, retrieval.output
+
+    args = [
+        "evaluate",
+        "--run",
+        str(run_path),
+        "--data-dir",
+        str(fixtures),
+        "--qrels",
+        str(fixtures / "qrels.tsv"),
+        "--k",
+        "3",
+        "--output",
+        str(report_path),
+    ]
+
+    result = runner.invoke(app, args)
+
+    assert result.exit_code == 0, result.output
+    assert "mrr@3:" in result.output
+
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+
+    assert report["metadata"]["queries"] == 5
+    assert report["metadata"]["k"] == 3
+
+    original = report_path.read_bytes()
+    repeated = runner.invoke(app, args)
+
+    assert repeated.exit_code == 1
+    assert "already exists" in repeated.output
+    assert report_path.read_bytes() == original

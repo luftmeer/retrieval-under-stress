@@ -10,6 +10,7 @@ import yaml
 from retrieval_lab.config import load_config
 from retrieval_lab.data.download import download_scifact
 from retrieval_lab.data.loader import load_dataset
+from retrieval_lab.evaluation import evaluate_run
 from retrieval_lab.runs import build_bm25_run, save_run
 
 app = typer.Typer(no_args_is_help=True)
@@ -131,4 +132,50 @@ def retrieve_bm25(
         raise typer.Exit(code=1) from exc
 
     typer.echo("BM25 run saved")
+    typer.echo(f"Output: {output}")
+
+
+@app.command("evaluate")
+def evaluate(
+    run: Annotated[
+        Path,
+        typer.Option(help="Saved retrieval run to evaluate."),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(help="New JSON evaluation report."),
+    ],
+    data_dir: Annotated[
+        Path,
+        typer.Option(help="Directory containing the dataset."),
+    ] = Path("data/raw/scifact"),
+    qrels: Annotated[
+        Path | None,
+        typer.Option(help="Qrels path; defaults to DATA_DIR/qrels/test.tsv."),
+    ] = None,
+    k: Annotated[
+        int,
+        typer.Option(min=1, help="Evaluation cutoff."),
+    ] = 10,
+) -> None:
+    """Evaluate saved rankings against matching relevance judgments."""
+    try:
+        if output.exists():
+            raise FileExistsError(
+                f"{output} already exists; choose another --output path"
+            )
+
+        qrels_path = qrels if qrels is not None else data_dir / "qrels" / "test.tsv"
+
+        report = evaluate_run(run, data_dir, qrels_path, k)
+        save_run(report, output)
+    except (OSError, ValueError) as exc:
+        typer.echo(f"Evaluation error: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+
+    typer.echo("Evaluation saved")
+
+    for name, value in report["aggregate"].items():
+        typer.echo(f"{name}: {value:.4f}")
+
     typer.echo(f"Output: {output}")
