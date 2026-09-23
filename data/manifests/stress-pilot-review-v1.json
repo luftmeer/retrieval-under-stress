@@ -1,0 +1,1655 @@
+{
+  "metadata": {
+    "code_sha256": {
+      "perturbation_runs": "0ddf127d4b58a8624c93f88fc87588ec39204ac9905a5ecf284ab0b4beb4b162",
+      "perturbations": "4a2b8270c11f485c03f8dd1cfa220b0ff164152ca2df00d4909a319d1aeecde9"
+    },
+    "inputs": {
+      "corpus": "dec31c8182f3d744c7d2c09423756fd1d17cbef75808db13ba01cc0aab4d1ac6",
+      "qrels": "dcc39651a2e3b8c81b7e10d7f16843adc857ee983856d201bc4b949c394d702a",
+      "queries": "8ff84a7c903f722981cd8d595c022660140c51867b27608a6d4910db86080313"
+    },
+    "paraphrase_count": 0,
+    "paraphrase_ids": [],
+    "schema_version": 1,
+    "seed": 42,
+    "transformation_version": "internal-swap-v1",
+    "typo_audit_sample_per_severity": 30
+  },
+  "variants": [
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.0625,
+      "edits": [
+        {
+          "after": "reprogrammnig",
+          "before": "reprogramming",
+          "end": 90,
+          "start": 77,
+          "swap_at": 87
+        }
+      ],
+      "flagged": false,
+      "original_text": "Removal of H3K9me3 by ectopic expression of other H3K9 demethylases improves reprogramming efficiency in SCNT experiments.",
+      "parent_query_id": "1035",
+      
+      "review_required": true,
+      "seed": 11373997648082567288,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Removal of H3K9me3 by ectopic expression of other H3K9 demethylases improves reprogrammnig efficiency in SCNT experiments.",
+      "variant_id": "1035::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.125,
+      "edits": [
+        {
+          "after": "reprogrammnig",
+          "before": "reprogramming",
+          "end": 90,
+          "start": 77,
+          "swap_at": 87
+        },
+        {
+          "after": "expressoin",
+          "before": "expression",
+          "end": 40,
+          "start": 30,
+          "swap_at": 37
+        }
+      ],
+      "flagged": false,
+      "original_text": "Removal of H3K9me3 by ectopic expression of other H3K9 demethylases improves reprogramming efficiency in SCNT experiments.",
+      "parent_query_id": "1035",
+      
+      "review_required": true,
+      "seed": 11373997648082567288,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Removal of H3K9me3 by ectopic expressoin of other H3K9 demethylases improves reprogrammnig efficiency in SCNT experiments.",
+      "variant_id": "1035::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.06666666666666667,
+      "edits": [
+        {
+          "after": "reporgram",
+          "before": "reprogram",
+          "end": 74,
+          "start": 65,
+          "swap_at": 68
+        }
+      ],
+      "flagged": false,
+      "original_text": "Replacement of OCT4 and SOX2 genes with GATA3 has the ability to reprogram human cells.",
+      "parent_query_id": "1037",
+      
+      "review_required": true,
+      "seed": 1389309244337641735,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Replacement of OCT4 and SOX2 genes with GATA3 has the ability to reporgram human cells.",
+      "variant_id": "1037::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.13333333333333333,
+      "edits": [
+        {
+          "after": "reporgram",
+          "before": "reprogram",
+          "end": 74,
+          "start": 65,
+          "swap_at": 68
+        },
+        {
+          "after": "aiblity",
+          "before": "ability",
+          "end": 61,
+          "start": 54,
+          "swap_at": 55
+        }
+      ],
+      "flagged": false,
+      "original_text": "Replacement of OCT4 and SOX2 genes with GATA3 has the ability to reprogram human cells.",
+      "parent_query_id": "1037",
+      
+      "review_required": true,
+      "seed": 1389309244337641735,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Replacement of OCT4 and SOX2 genes with GATA3 has the aiblity to reporgram human cells.",
+      "variant_id": "1037::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.0625,
+      "edits": [
+        {
+          "after": "hisotne",
+          "before": "histone",
+          "end": 22,
+          "start": 15,
+          "swap_at": 18
+        }
+      ],
+      "flagged": false,
+      "original_text": "Replacement of histone H2A with H2A.Z accelerates gene activation in yeasts by destabilizing +1 nucleosomes.",
+      "parent_query_id": "1040",
+      
+      "review_required": true,
+      "seed": 920444283869470034,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Replacement of hisotne H2A with H2A.Z accelerates gene activation in yeasts by destabilizing +1 nucleosomes.",
+      "variant_id": "1040::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.125,
+      "edits": [
+        {
+          "after": "hisotne",
+          "before": "histone",
+          "end": 22,
+          "start": 15,
+          "swap_at": 18
+        },
+        {
+          "after": "activatoin",
+          "before": "activation",
+          "end": 65,
+          "start": 55,
+          "swap_at": 62
+        }
+      ],
+      "flagged": false,
+      "original_text": "Replacement of histone H2A with H2A.Z accelerates gene activation in yeasts by destabilizing +1 nucleosomes.",
+      "parent_query_id": "1040",
+      
+      "review_required": true,
+      "seed": 920444283869470034,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Replacement of hisotne H2A with H2A.Z accelerates gene activatoin in yeasts by destabilizing +1 nucleosomes.",
+      "variant_id": "1040::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.0625,
+      "edits": [
+        {
+          "after": "recpetor",
+          "before": "receptor",
+          "end": 46,
+          "start": 38,
+          "swap_at": 41
+        }
+      ],
+      "flagged": false,
+      "original_text": "Retinoic acid receptor-related orphan receptor gamma (RORγ) is a therapeutic target for castration-resistant prostate cancer (CRPC)",
+      "parent_query_id": "1043",
+      
+      "review_required": true,
+      "seed": 504273063164881938,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Retinoic acid receptor-related orphan recpetor gamma (RORγ) is a therapeutic target for castration-resistant prostate cancer (CRPC)",
+      "variant_id": "1043::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.125,
+      "edits": [
+        {
+          "after": "recpetor",
+          "before": "receptor",
+          "end": 46,
+          "start": 38,
+          "swap_at": 41
+        },
+        {
+          "after": "traget",
+          "before": "target",
+          "end": 83,
+          "start": 77,
+          "swap_at": 78
+        }
+      ],
+      "flagged": false,
+      "original_text": "Retinoic acid receptor-related orphan receptor gamma (RORγ) is a therapeutic target for castration-resistant prostate cancer (CRPC)",
+      "parent_query_id": "1043",
+      
+      "review_required": true,
+      "seed": 504273063164881938,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Retinoic acid receptor-related orphan recpetor gamma (RORγ) is a therapeutic traget for castration-resistant prostate cancer (CRPC)",
+      "variant_id": "1043::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.16666666666666666,
+      "edits": [
+        {
+          "after": "gloiblastoma",
+          "before": "glioblastoma",
+          "end": 25,
+          "start": 13,
+          "swap_at": 15
+        }
+      ],
+      "flagged": false,
+      "original_text": "TNFAIP3 is a glioblastoma tumor suppressor.",
+      "parent_query_id": "1135",
+      
+      "review_required": true,
+      "seed": 14894327637427585099,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "TNFAIP3 is a gloiblastoma tumor suppressor.",
+      "variant_id": "1135::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.3333333333333333,
+      "edits": [
+        {
+          "after": "gloiblastoma",
+          "before": "glioblastoma",
+          "end": 25,
+          "start": 13,
+          "swap_at": 15
+        },
+        {
+          "after": "suprpessor",
+          "before": "suppressor",
+          "end": 42,
+          "start": 32,
+          "swap_at": 35
+        }
+      ],
+      "flagged": false,
+      "original_text": "TNFAIP3 is a glioblastoma tumor suppressor.",
+      "parent_query_id": "1135",
+      
+      "review_required": true,
+      "seed": 14894327637427585099,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "TNFAIP3 is a gloiblastoma tumor suprpessor.",
+      "variant_id": "1135::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.058823529411764705,
+      "edits": [
+        {
+          "after": "experimnetal",
+          "before": "experimental",
+          "end": 97,
+          "start": 85,
+          "swap_at": 92
+        }
+      ],
+      "flagged": false,
+      "original_text": "Taking anti-depresents is associated with a decrease in the Aβ level in the brain of experimental animals.",
+      "parent_query_id": "1142",
+      
+      "review_required": true,
+      "seed": 3912285791336078253,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Taking anti-depresents is associated with a decrease in the Aβ level in the brain of experimnetal animals.",
+      "variant_id": "1142::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.11764705882352941,
+      "edits": [
+        {
+          "after": "experimnetal",
+          "before": "experimental",
+          "end": 97,
+          "start": 85,
+          "swap_at": 92
+        },
+        {
+          "after": "assocaited",
+          "before": "associated",
+          "end": 36,
+          "start": 26,
+          "swap_at": 31
+        }
+      ],
+      "flagged": false,
+      "original_text": "Taking anti-depresents is associated with a decrease in the Aβ level in the brain of experimental animals.",
+      "parent_query_id": "1142",
+      
+      "review_required": true,
+      "seed": 3912285791336078253,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Taking anti-depresents is assocaited with a decrease in the Aβ level in the brain of experimnetal animals.",
+      "variant_id": "1142::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.058823529411764705,
+      "edits": [
+        {
+          "after": "multpile",
+          "before": "multiple",
+          "end": 45,
+          "start": 37,
+          "swap_at": 41
+        }
+      ],
+      "flagged": false,
+      "original_text": "The DEXI promoter region is bound by multiple transcription factors in a murine haematopoietic progenitor cell line.",
+      "parent_query_id": "1161",
+      
+      "review_required": true,
+      "seed": 8260169289848660630,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "The DEXI promoter region is bound by multpile transcription factors in a murine haematopoietic progenitor cell line.",
+      "variant_id": "1161::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.11764705882352941,
+      "edits": [
+        {
+          "after": "multpile",
+          "before": "multiple",
+          "end": 45,
+          "start": 37,
+          "swap_at": 41
+        },
+        {
+          "after": "reigon",
+          "before": "region",
+          "end": 24,
+          "start": 18,
+          "swap_at": 20
+        }
+      ],
+      "flagged": false,
+      "original_text": "The DEXI promoter region is bound by multiple transcription factors in a murine haematopoietic progenitor cell line.",
+      "parent_query_id": "1161",
+      
+      "review_required": true,
+      "seed": 8260169289848660630,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "The DEXI promoter reigon is bound by multpile transcription factors in a murine haematopoietic progenitor cell line.",
+      "variant_id": "1161::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.125,
+      "edits": [
+        {
+          "after": "doamins",
+          "before": "domains",
+          "end": 47,
+          "start": 40,
+          "swap_at": 42
+        }
+      ],
+      "flagged": false,
+      "original_text": "The PPR MDA5 has twenty N-terminal CARD domains.",
+      "parent_query_id": "1174",
+      
+      "review_required": true,
+      "seed": 5481400857592805678,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "The PPR MDA5 has twenty N-terminal CARD doamins.",
+      "variant_id": "1174::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.25,
+      "edits": [
+        {
+          "after": "doamins",
+          "before": "domains",
+          "end": 47,
+          "start": 40,
+          "swap_at": 42
+        },
+        {
+          "after": "tewnty",
+          "before": "twenty",
+          "end": 23,
+          "start": 17,
+          "swap_at": 18
+        }
+      ],
+      "flagged": false,
+      "original_text": "The PPR MDA5 has twenty N-terminal CARD domains.",
+      "parent_query_id": "1174",
+      
+      "review_required": true,
+      "seed": 5481400857592805678,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "The PPR MDA5 has tewnty N-terminal CARD doamins.",
+      "variant_id": "1174::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.08333333333333333,
+      "edits": [
+        {
+          "after": "agnets",
+          "before": "agents",
+          "end": 20,
+          "start": 14,
+          "swap_at": 16
+        }
+      ],
+      "flagged": false,
+      "original_text": "Antimicrobial agents are more effective due to the pressure of antimicrobial usage.",
+      "parent_query_id": "122",
+      
+      "review_required": true,
+      "seed": 11888443269631499402,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Antimicrobial agnets are more effective due to the pressure of antimicrobial usage.",
+      "variant_id": "122::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.16666666666666666,
+      "edits": [
+        {
+          "after": "agnets",
+          "before": "agents",
+          "end": 20,
+          "start": 14,
+          "swap_at": 16
+        },
+        {
+          "after": "effectvie",
+          "before": "effective",
+          "end": 39,
+          "start": 30,
+          "swap_at": 36
+        }
+      ],
+      "flagged": false,
+      "original_text": "Antimicrobial agents are more effective due to the pressure of antimicrobial usage.",
+      "parent_query_id": "122",
+      
+      "review_required": true,
+      "seed": 11888443269631499402,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Antimicrobial agnets are more effectvie due to the pressure of antimicrobial usage.",
+      "variant_id": "122::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.1,
+      "edits": [
+        {
+          "after": "suprpession",
+          "before": "suppression",
+          "end": 56,
+          "start": 45,
+          "swap_at": 48
+        }
+      ],
+      "flagged": false,
+      "original_text": "Tumor development occurs in conjunction with suppression of pro-inflammatory cytokines.",
+      "parent_query_id": "1330",
+      
+      "review_required": true,
+      "seed": 6407726713104114711,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Tumor development occurs in conjunction with suprpession of pro-inflammatory cytokines.",
+      "variant_id": "1330::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.2,
+      "edits": [
+        {
+          "after": "suprpession",
+          "before": "suppression",
+          "end": 56,
+          "start": 45,
+          "swap_at": 48
+        },
+        {
+          "after": "cytoiknes",
+          "before": "cytokines",
+          "end": 86,
+          "start": 77,
+          "swap_at": 81
+        }
+      ],
+      "flagged": false,
+      "original_text": "Tumor development occurs in conjunction with suppression of pro-inflammatory cytokines.",
+      "parent_query_id": "1330",
+      
+      "review_required": true,
+      "seed": 6407726713104114711,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Tumor development occurs in conjunction with suprpession of pro-inflammatory cytoiknes.",
+      "variant_id": "1330::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.125,
+      "edits": [
+        {
+          "after": "advnetitia",
+          "before": "adventitia",
+          "end": 47,
+          "start": 37,
+          "swap_at": 40
+        }
+      ],
+      "flagged": false,
+      "original_text": "Venules have less significant tunica adventitia than arterioles.",
+      "parent_query_id": "1364",
+      
+      "review_required": true,
+      "seed": 16934530670971396171,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Venules have less significant tunica advnetitia than arterioles.",
+      "variant_id": "1364::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.25,
+      "edits": [
+        {
+          "after": "advnetitia",
+          "before": "adventitia",
+          "end": 47,
+          "start": 37,
+          "swap_at": 40
+        },
+        {
+          "after": "arteiroles",
+          "before": "arterioles",
+          "end": 63,
+          "start": 53,
+          "swap_at": 57
+        }
+      ],
+      "flagged": false,
+      "original_text": "Venules have less significant tunica adventitia than arterioles.",
+      "parent_query_id": "1364",
+      
+      "review_required": true,
+      "seed": 16934530670971396171,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Venules have less significant tunica advnetitia than arteiroles.",
+      "variant_id": "1364::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.08333333333333333,
+      "edits": [
+        {
+          "after": "funciton",
+          "before": "function",
+          "end": 57,
+          "start": 49,
+          "swap_at": 53
+        }
+      ],
+      "flagged": false,
+      "original_text": "Walking in traffic areas in London improves lung function in elderly adults.",
+      "parent_query_id": "1373",
+      
+      "review_required": true,
+      "seed": 7458270547854119669,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Walking in traffic areas in London improves lung funciton in elderly adults.",
+      "variant_id": "1373::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.16666666666666666,
+      "edits": [
+        {
+          "after": "funciton",
+          "before": "function",
+          "end": 57,
+          "start": 49,
+          "swap_at": 53
+        },
+        {
+          "after": "eldrely",
+          "before": "elderly",
+          "end": 68,
+          "start": 61,
+          "swap_at": 64
+        }
+      ],
+      "flagged": false,
+      "original_text": "Walking in traffic areas in London improves lung function in elderly adults.",
+      "parent_query_id": "1373",
+      
+      "review_required": true,
+      "seed": 7458270547854119669,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Walking in traffic areas in London improves lung funciton in eldrely adults.",
+      "variant_id": "1373::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.1111111111111111,
+      "edits": [
+        {
+          "after": "cacrinogenesis",
+          "before": "carcinogenesis",
+          "end": 66,
+          "start": 52,
+          "swap_at": 54
+        }
+      ],
+      "flagged": false,
+      "original_text": "eRNAs influence is linked to senescence, aging, and carcinogenesis.",
+      "parent_query_id": "1387",
+      
+      "review_required": true,
+      "seed": 5849707601812894756,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "eRNAs influence is linked to senescence, aging, and cacrinogenesis.",
+      "variant_id": "1387::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.2222222222222222,
+      "edits": [
+        {
+          "after": "cacrinogenesis",
+          "before": "carcinogenesis",
+          "end": 66,
+          "start": 52,
+          "swap_at": 54
+        },
+        {
+          "after": "likned",
+          "before": "linked",
+          "end": 25,
+          "start": 19,
+          "swap_at": 21
+        }
+      ],
+      "flagged": false,
+      "original_text": "eRNAs influence is linked to senescence, aging, and carcinogenesis.",
+      "parent_query_id": "1387",
+      
+      "review_required": true,
+      "seed": 5849707601812894756,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "eRNAs influence is likned to senescence, aging, and cacrinogenesis.",
+      "variant_id": "1387::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.09090909090909091,
+      "edits": [
+        {
+          "after": "bindnig",
+          "before": "binding",
+          "end": 72,
+          "start": 65,
+          "swap_at": 69
+        }
+      ],
+      "flagged": false,
+      "original_text": "r-protein chaperones are found in complexes with their r-protein binding partners.",
+      "parent_query_id": "1402",
+      
+      "review_required": true,
+      "seed": 5250896846165777626,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "r-protein chaperones are found in complexes with their r-protein bindnig partners.",
+      "variant_id": "1402::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.18181818181818182,
+      "edits": [
+        {
+          "after": "bindnig",
+          "before": "binding",
+          "end": 72,
+          "start": 65,
+          "swap_at": 69
+        },
+        {
+          "after": "chapreones",
+          "before": "chaperones",
+          "end": 20,
+          "start": 10,
+          "swap_at": 14
+        }
+      ],
+      "flagged": false,
+      "original_text": "r-protein chaperones are found in complexes with their r-protein binding partners.",
+      "parent_query_id": "1402",
+      
+      "review_required": true,
+      "seed": 5250896846165777626,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "r-protein chapreones are found in complexes with their r-protein bindnig partners.",
+      "variant_id": "1402::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.14285714285714285,
+      "edits": [
+        {
+          "after": "cnacer",
+          "before": "cancer",
+          "end": 56,
+          "start": 50,
+          "swap_at": 51
+        }
+      ],
+      "flagged": false,
+      "original_text": "Birth-weight is negatively associated with breast cancer.",
+      "parent_query_id": "178",
+      
+      "review_required": true,
+      "seed": 7869011442362364856,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Birth-weight is negatively associated with breast cnacer.",
+      "variant_id": "178::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.2857142857142857,
+      "edits": [
+        {
+          "after": "cnacer",
+          "before": "cancer",
+          "end": 56,
+          "start": 50,
+          "swap_at": 51
+        },
+        {
+          "after": "assoicated",
+          "before": "associated",
+          "end": 37,
+          "start": 27,
+          "swap_at": 31
+        }
+      ],
+      "flagged": false,
+      "original_text": "Birth-weight is negatively associated with breast cancer.",
+      "parent_query_id": "178",
+      
+      "review_required": true,
+      "seed": 7869011442362364856,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Birth-weight is negatively assoicated with breast cnacer.",
+      "variant_id": "178::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.09090909090909091,
+      "edits": [
+        {
+          "after": "anxitey",
+          "before": "anxiety",
+          "end": 66,
+          "start": 59,
+          "swap_at": 63
+        }
+      ],
+      "flagged": false,
+      "original_text": "Exposure to fine particulate air pollution is unrelated to anxiety prevalence.",
+      "parent_query_id": "400",
+      
+      "review_required": true,
+      "seed": 8652801800461097044,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Exposure to fine particulate air pollution is unrelated to anxitey prevalence.",
+      "variant_id": "400::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.18181818181818182,
+      "edits": [
+        {
+          "after": "anxitey",
+          "before": "anxiety",
+          "end": 66,
+          "start": 59,
+          "swap_at": 63
+        },
+        {
+          "after": "particultae",
+          "before": "particulate",
+          "end": 28,
+          "start": 17,
+          "swap_at": 25
+        }
+      ],
+      "flagged": false,
+      "original_text": "Exposure to fine particulate air pollution is unrelated to anxiety prevalence.",
+      "parent_query_id": "400",
+      
+      "review_required": true,
+      "seed": 8652801800461097044,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Exposure to fine particultae air pollution is unrelated to anxitey prevalence.",
+      "variant_id": "400::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.08333333333333333,
+      "edits": [
+        {
+          "after": "pepitdes",
+          "before": "peptides",
+          "end": 50,
+          "start": 42,
+          "swap_at": 45
+        }
+      ],
+      "flagged": false,
+      "original_text": "Expression of oncolytic virus antigens as peptides permits additional protection against relapse.",
+      "parent_query_id": "404",
+      
+      "review_required": true,
+      "seed": 7084925212466532168,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Expression of oncolytic virus antigens as pepitdes permits additional protection against relapse.",
+      "variant_id": "404::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.16666666666666666,
+      "edits": [
+        {
+          "after": "pepitdes",
+          "before": "peptides",
+          "end": 50,
+          "start": 42,
+          "swap_at": 45
+        },
+        {
+          "after": "premits",
+          "before": "permits",
+          "end": 58,
+          "start": 51,
+          "swap_at": 52
+        }
+      ],
+      "flagged": false,
+      "original_text": "Expression of oncolytic virus antigens as peptides permits additional protection against relapse.",
+      "parent_query_id": "404",
+      
+      "review_required": true,
+      "seed": 7084925212466532168,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Expression of oncolytic virus antigens as pepitdes premits additional protection against relapse.",
+      "variant_id": "404::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.08333333333333333,
+      "edits": [
+        {
+          "after": "seuqestration",
+          "before": "sequestration",
+          "end": 58,
+          "start": 45,
+          "swap_at": 47
+        }
+      ],
+      "flagged": false,
+      "original_text": "Immune complex triggered cell death leads to sequestration of oxidized mitochondrial DNA.",
+      "parent_query_id": "557",
+      
+      "review_required": true,
+      "seed": 9170228306961406461,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Immune complex triggered cell death leads to seuqestration of oxidized mitochondrial DNA.",
+      "variant_id": "557::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.16666666666666666,
+      "edits": [
+        {
+          "after": "seuqestration",
+          "before": "sequestration",
+          "end": 58,
+          "start": 45,
+          "swap_at": 47
+        },
+        {
+          "after": "tirggered",
+          "before": "triggered",
+          "end": 24,
+          "start": 15,
+          "swap_at": 16
+        }
+      ],
+      "flagged": false,
+      "original_text": "Immune complex triggered cell death leads to sequestration of oxidized mitochondrial DNA.",
+      "parent_query_id": "557",
+      
+      "review_required": true,
+      "seed": 9170228306961406461,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Immune complex tirggered cell death leads to seuqestration of oxidized mitochondrial DNA.",
+      "variant_id": "557::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.07692307692307693,
+      "edits": [
+        {
+          "after": "tumorigeneiss",
+          "before": "tumorigenesis",
+          "end": 89,
+          "start": 76,
+          "swap_at": 86
+        }
+      ],
+      "flagged": false,
+      "original_text": "Increased mobility of retrotransposons does not lead to mutation and higher tumorigenesis rates.",
+      "parent_query_id": "616",
+      
+      "review_required": true,
+      "seed": 10351022699055893540,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Increased mobility of retrotransposons does not lead to mutation and higher tumorigeneiss rates.",
+      "variant_id": "616::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.15384615384615385,
+      "edits": [
+        {
+          "after": "tumorigeneiss",
+          "before": "tumorigenesis",
+          "end": 89,
+          "start": 76,
+          "swap_at": 86
+        },
+        {
+          "after": "moiblity",
+          "before": "mobility",
+          "end": 18,
+          "start": 10,
+          "swap_at": 12
+        }
+      ],
+      "flagged": false,
+      "original_text": "Increased mobility of retrotransposons does not lead to mutation and higher tumorigenesis rates.",
+      "parent_query_id": "616",
+      
+      "review_required": true,
+      "seed": 10351022699055893540,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Increased moiblity of retrotransposons does not lead to mutation and higher tumorigeneiss rates.",
+      "variant_id": "616::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.08333333333333333,
+      "edits": [
+        {
+          "after": "snesing",
+          "before": "sensing",
+          "end": 52,
+          "start": 45,
+          "swap_at": 46
+        }
+      ],
+      "flagged": false,
+      "original_text": "ATM and Rad3 related protein have no role in sensing DNA damage.",
+      "parent_query_id": "64",
+      
+      "review_required": true,
+      "seed": 17381439804484787619,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "ATM and Rad3 related protein have no role in snesing DNA damage.",
+      "variant_id": "64::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.16666666666666666,
+      "edits": [
+        {
+          "after": "snesing",
+          "before": "sensing",
+          "end": 52,
+          "start": 45,
+          "swap_at": 46
+        },
+        {
+          "after": "prtoein",
+          "before": "protein",
+          "end": 28,
+          "start": 21,
+          "swap_at": 23
+        }
+      ],
+      "flagged": false,
+      "original_text": "ATM and Rad3 related protein have no role in sensing DNA damage.",
+      "parent_query_id": "64",
+      
+      "review_required": true,
+      "seed": 17381439804484787619,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "ATM and Rad3 related prtoein have no role in snesing DNA damage.",
+      "variant_id": "64::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.2,
+      "edits": [
+        {
+          "after": "reccyling",
+          "before": "recycling",
+          "end": 32,
+          "start": 23,
+          "swap_at": 26
+        }
+      ],
+      "flagged": false,
+      "original_text": "LRBA prevents CTLA - 4 recycling.",
+      "parent_query_id": "676",
+      
+      "review_required": true,
+      "seed": 9326780080327483078,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "LRBA prevents CTLA - 4 reccyling.",
+      "variant_id": "676::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 0,
+      "edited_token_fraction": 0.0,
+      "edits": [],
+      "flagged": false,
+      "original_text": "LRBA prevents CTLA - 4 recycling.",
+      "parent_query_id": "676",
+      "review_note": "Too few eligible words",
+      "review_required": false,
+      "seed": 9326780080327483078,
+      "status": "ineligible",
+      "text": "LRBA prevents CTLA - 4 recycling.",
+      "variant_id": "676::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.06666666666666667,
+      "edits": [
+        {
+          "after": "patinets",
+          "before": "patients",
+          "end": 25,
+          "start": 17,
+          "swap_at": 21
+        }
+      ],
+      "flagged": false,
+      "original_text": "Less than 10% of patients exposed to radiation have activated markers of mesenchymal stem cells.",
+      "parent_query_id": "689",
+      
+      "review_required": true,
+      "seed": 17105568182762015462,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Less than 10% of patinets exposed to radiation have activated markers of mesenchymal stem cells.",
+      "variant_id": "689::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.13333333333333333,
+      "edits": [
+        {
+          "after": "patinets",
+          "before": "patients",
+          "end": 25,
+          "start": 17,
+          "swap_at": 21
+        },
+        {
+          "after": "radaition",
+          "before": "radiation",
+          "end": 46,
+          "start": 37,
+          "swap_at": 40
+        }
+      ],
+      "flagged": false,
+      "original_text": "Less than 10% of patients exposed to radiation have activated markers of mesenchymal stem cells.",
+      "parent_query_id": "689",
+      
+      "review_required": true,
+      "seed": 17105568182762015462,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Less than 10% of patinets exposed to radaition have activated markers of mesenchymal stem cells.",
+      "variant_id": "689::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.2,
+      "edits": [
+        {
+          "after": "idnuces",
+          "before": "induces",
+          "end": 20,
+          "start": 13,
+          "swap_at": 14
+        }
+      ],
+      "flagged": false,
+      "original_text": "Active Ly49Q induces neutrophil polarization.",
+      "parent_query_id": "76",
+      
+      "review_required": true,
+      "seed": 12542213110739468688,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Active Ly49Q idnuces neutrophil polarization.",
+      "variant_id": "76::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.4,
+      "edits": [
+        {
+          "after": "idnuces",
+          "before": "induces",
+          "end": 20,
+          "start": 13,
+          "swap_at": 14
+        },
+        {
+          "after": "neutrpohil",
+          "before": "neutrophil",
+          "end": 31,
+          "start": 21,
+          "swap_at": 26
+        }
+      ],
+      "flagged": false,
+      "original_text": "Active Ly49Q induces neutrophil polarization.",
+      "parent_query_id": "76",
+      
+      "review_required": true,
+      "seed": 12542213110739468688,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Active Ly49Q idnuces neutrpohil polarization.",
+      "variant_id": "76::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.05555555555555555,
+      "edits": [
+        {
+          "after": "deoyxribonucleic",
+          "before": "deoxyribonucleic",
+          "end": 35,
+          "start": 19,
+          "swap_at": 22
+        }
+      ],
+      "flagged": false,
+      "original_text": "Mice defective for deoxyribonucleic acid (DNA) polymerase I (polI) fail to reveal increased sensitivity to ionizing radiation (IR).",
+      "parent_query_id": "774",
+      
+      "review_required": true,
+      "seed": 982807872697200208,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Mice defective for deoyxribonucleic acid (DNA) polymerase I (polI) fail to reveal increased sensitivity to ionizing radiation (IR).",
+      "variant_id": "774::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.1111111111111111,
+      "edits": [
+        {
+          "after": "deoyxribonucleic",
+          "before": "deoxyribonucleic",
+          "end": 35,
+          "start": 19,
+          "swap_at": 22
+        },
+        {
+          "after": "senistivity",
+          "before": "sensitivity",
+          "end": 103,
+          "start": 92,
+          "swap_at": 95
+        }
+      ],
+      "flagged": false,
+      "original_text": "Mice defective for deoxyribonucleic acid (DNA) polymerase I (polI) fail to reveal increased sensitivity to ionizing radiation (IR).",
+      "parent_query_id": "774",
+      
+      "review_required": true,
+      "seed": 982807872697200208,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Mice defective for deoyxribonucleic acid (DNA) polymerase I (polI) fail to reveal increased senistivity to ionizing radiation (IR).",
+      "variant_id": "774::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.06666666666666667,
+      "edits": [
+        {
+          "after": "lacikng",
+          "before": "lacking",
+          "end": 19,
+          "start": 12,
+          "swap_at": 15
+        }
+      ],
+      "flagged": false,
+      "original_text": "Mutant mice lacking SVCT2 have severely reduced ascorbic acid levels in both brain and adrenals.",
+      "parent_query_id": "812",
+      
+      "review_required": true,
+      "seed": 10620324565473140834,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Mutant mice lacikng SVCT2 have severely reduced ascorbic acid levels in both brain and adrenals.",
+      "variant_id": "812::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.13333333333333333,
+      "edits": [
+        {
+          "after": "lacikng",
+          "before": "lacking",
+          "end": 19,
+          "start": 12,
+          "swap_at": 15
+        },
+        {
+          "after": "levles",
+          "before": "levels",
+          "end": 68,
+          "start": 62,
+          "swap_at": 65
+        }
+      ],
+      "flagged": false,
+      "original_text": "Mutant mice lacking SVCT2 have severely reduced ascorbic acid levels in both brain and adrenals.",
+      "parent_query_id": "812",
+      
+      "review_required": true,
+      "seed": 10620324565473140834,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Mutant mice lacikng SVCT2 have severely reduced ascorbic acid levles in both brain and adrenals.",
+      "variant_id": "812::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.1,
+      "edits": [
+        {
+          "after": "graunlomas",
+          "before": "granulomas",
+          "end": 17,
+          "start": 7,
+          "swap_at": 10
+        }
+      ],
+      "flagged": false,
+      "original_text": "Normal granulomas form in the absence of TNF in Zebrafish.",
+      "parent_query_id": "860",
+      
+      "review_required": true,
+      "seed": 4310378588311564557,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Normal graunlomas form in the absence of TNF in Zebrafish.",
+      "variant_id": "860::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.2,
+      "edits": [
+        {
+          "after": "graunlomas",
+          "before": "granulomas",
+          "end": 17,
+          "start": 7,
+          "swap_at": 10
+        },
+        {
+          "after": "absnece",
+          "before": "absence",
+          "end": 37,
+          "start": 30,
+          "swap_at": 33
+        }
+      ],
+      "flagged": false,
+      "original_text": "Normal granulomas form in the absence of TNF in Zebrafish.",
+      "parent_query_id": "860",
+      
+      "review_required": true,
+      "seed": 4310378588311564557,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Normal graunlomas form in the absnece of TNF in Zebrafish.",
+      "variant_id": "860::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.058823529411764705,
+      "edits": [
+        {
+          "after": "diffsuion",
+          "before": "diffusion",
+          "end": 91,
+          "start": 82,
+          "swap_at": 86
+        }
+      ],
+      "flagged": false,
+      "original_text": "Origin gross domestic product(GDP) is positively related to dengue virus (DENV-1) diffusion in air traffic shipments.",
+      "parent_query_id": "891",
+      
+      "review_required": true,
+      "seed": 9837675170101889559,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Origin gross domestic product(GDP) is positively related to dengue virus (DENV-1) diffsuion in air traffic shipments.",
+      "variant_id": "891::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.11764705882352941,
+      "edits": [
+        {
+          "after": "diffsuion",
+          "before": "diffusion",
+          "end": 91,
+          "start": 82,
+          "swap_at": 86
+        },
+        {
+          "after": "dmoestic",
+          "before": "domestic",
+          "end": 21,
+          "start": 13,
+          "swap_at": 14
+        }
+      ],
+      "flagged": false,
+      "original_text": "Origin gross domestic product(GDP) is positively related to dengue virus (DENV-1) diffusion in air traffic shipments.",
+      "parent_query_id": "891",
+      
+      "review_required": true,
+      "seed": 9837675170101889559,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Origin gross dmoestic product(GDP) is positively related to dengue virus (DENV-1) diffsuion in air traffic shipments.",
+      "variant_id": "891::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.1111111111111111,
+      "edits": [
+        {
+          "after": "inujry",
+          "before": "injury",
+          "end": 66,
+          "start": 60,
+          "swap_at": 62
+        }
+      ],
+      "flagged": false,
+      "original_text": "Aged patients are more susceptible to ischaemia/reperfusion injury.",
+      "parent_query_id": "92",
+      
+      "review_required": true,
+      "seed": 12715137910998185573,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Aged patients are more susceptible to ischaemia/reperfusion inujry.",
+      "variant_id": "92::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.2222222222222222,
+      "edits": [
+        {
+          "after": "inujry",
+          "before": "injury",
+          "end": 66,
+          "start": 60,
+          "swap_at": 62
+        },
+        {
+          "after": "reperufsion",
+          "before": "reperfusion",
+          "end": 59,
+          "start": 48,
+          "swap_at": 53
+        }
+      ],
+      "flagged": false,
+      "original_text": "Aged patients are more susceptible to ischaemia/reperfusion injury.",
+      "parent_query_id": "92",
+      
+      "review_required": true,
+      "seed": 12715137910998185573,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Aged patients are more susceptible to ischaemia/reperufsion inujry.",
+      "variant_id": "92::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.041666666666666664,
+      "edits": [
+        {
+          "after": "emergecny",
+          "before": "emergency",
+          "end": 76,
+          "start": 67,
+          "swap_at": 73
+        }
+      ],
+      "flagged": false,
+      "original_text": "Patients with common epithelial cancers are less likely to have an emergency event as their first hospital admission if they live in resource-deprived areas.",
+      "parent_query_id": "927",
+      
+      "review_required": true,
+      "seed": 15551910327449299415,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Patients with common epithelial cancers are less likely to have an emergecny event as their first hospital admission if they live in resource-deprived areas.",
+      "variant_id": "927::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.08333333333333333,
+      "edits": [
+        {
+          "after": "emergecny",
+          "before": "emergency",
+          "end": 76,
+          "start": 67,
+          "swap_at": 73
+        },
+        {
+          "after": "admissoin",
+          "before": "admission",
+          "end": 116,
+          "start": 107,
+          "swap_at": 113
+        }
+      ],
+      "flagged": false,
+      "original_text": "Patients with common epithelial cancers are less likely to have an emergency event as their first hospital admission if they live in resource-deprived areas.",
+      "parent_query_id": "927",
+      
+      "review_required": true,
+      "seed": 15551910327449299415,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Patients with common epithelial cancers are less likely to have an emergecny event as their first hospital admissoin if they live in resource-deprived areas.",
+      "variant_id": "927::typo_heavy::internal-swap-v1"
+    },
+    {
+      "condition": "typo_light",
+      "edit_count": 1,
+      "edited_token_fraction": 0.05263157894736842,
+      "edits": [
+        {
+          "after": "sveere",
+          "before": "severe",
+          "end": 85,
+          "start": 79,
+          "swap_at": 80
+        }
+      ],
+      "flagged": false,
+      "original_text": "Patients with microcytosis and higher erythrocyte count are more vulnerable to severe malarial anaemia when infected with Plasmodium falciparum.",
+      "parent_query_id": "928",
+      
+      "review_required": true,
+      "seed": 10851226862548925237,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Patients with microcytosis and higher erythrocyte count are more vulnerable to sveere malarial anaemia when infected with Plasmodium falciparum.",
+      "variant_id": "928::typo_light::internal-swap-v1"
+    },
+    {
+      "condition": "typo_heavy",
+      "edit_count": 2,
+      "edited_token_fraction": 0.10526315789473684,
+      "edits": [
+        {
+          "after": "sveere",
+          "before": "severe",
+          "end": 85,
+          "start": 79,
+          "swap_at": 80
+        },
+        {
+          "after": "erythroycte",
+          "before": "erythrocyte",
+          "end": 49,
+          "start": 38,
+          "swap_at": 45
+        }
+      ],
+      "flagged": false,
+      "original_text": "Patients with microcytosis and higher erythrocyte count are more vulnerable to severe malarial anaemia when infected with Plasmodium falciparum.",
+      "parent_query_id": "928",
+      
+      "review_required": true,
+      "seed": 10851226862548925237,
+      "status": "accepted",
+      "review_note": "The intended word is clear and the claim meaning is preserved.",
+      "text": "Patients with microcytosis and higher erythroycte count are more vulnerable to sveere malarial anaemia when infected with Plasmodium falciparum.",
+      "variant_id": "928::typo_heavy::internal-swap-v1"
+    }
+  ]
+}
