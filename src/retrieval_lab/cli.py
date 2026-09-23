@@ -16,6 +16,7 @@ from retrieval_lab.data.download import download_scifact
 from retrieval_lab.data.loader import load_dataset
 from retrieval_lab.dense_runs import build_dense_run
 from retrieval_lab.evaluation import evaluate_run
+from retrieval_lab.hybrid_runs import build_hybrid_run
 from retrieval_lab.runs import build_bm25_run, save_run
 
 app = typer.Typer(no_args_is_help=True)
@@ -241,4 +242,51 @@ def retrieve_dense(
         raise typer.Exit(code=1) from exc
 
     typer.echo("Dense run saved")
+    typer.echo(f"Output: {output}")
+
+
+@app.command("fuse-rrf")
+def fuse_rrf(
+    bm25_run: Annotated[
+        Path,
+        typer.Option(help="Saved BM25 retrieval run."),
+    ],
+    dense_run: Annotated[
+        Path,
+        typer.Option(help="Saved dense retrieval run."),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(help="New fused retrieval run."),
+    ],
+    config: Annotated[
+        Path,
+        typer.Option(help="Configuration controlling output depth."),
+    ] = Path("configs/retrieval.yaml"),
+    rrf_k: Annotated[
+        int,
+        typer.Option(min=0, help="RRF rank constant."),
+    ] = 60,
+) -> None:
+    """Fuse saved BM25 and dense rankings using equal-weight RRF."""
+    try:
+        if output.exists():
+            raise FileExistsError(
+                f"{output} already exists; choose another --output path"
+            )
+
+        settings = load_config(config)
+        run = build_hybrid_run(
+            bm25_run,
+            dense_run,
+            settings,
+            rrf_k=rrf_k,
+        )
+        save_run(run, output)
+
+    except (OSError, ValueError, yaml.YAMLError) as exc:
+        typer.echo(f"RRF fusion error: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+
+    typer.echo("Hybrid RRF run saved")
     typer.echo(f"Output: {output}")
