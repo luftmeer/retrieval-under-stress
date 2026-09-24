@@ -1,6 +1,6 @@
 {
-  "cpu": "",
-  "ram_gib": 0,
-  "qdrant_runtime": "",
-  "power_mode": ""
+  "cpu": "Apple M1 Max",
+  "ram_gib": 32,
+  "qdrant_runtime": "qdrant/qdrant:v1.18.2, 10 cpu cores, 7.9 GB max",
+  "power_mode": "plugged-in"
 }
