@@ -185,6 +185,11 @@ def main():
     parser.add_argument("latency", type=Path)
     parser.add_argument("figures", type=Path)
     parser.add_argument("--name", default="stress-v1-evidence-import")
+    parser.add_argument(
+        "--receipt",
+        type=Path,
+        help="Optional JSON file recording the imported parent run.",
+    )
     args = parser.parse_args()
 
     # Validate and prepare all metrics before creating an MLflow run.
@@ -257,6 +262,25 @@ def main():
                     str(directory / relative),
                     artifact_path=(Path("evidence") / stage / relative.parent).as_posix(),
                 )
+
+        if args.receipt is not None:
+            receipt = {
+                "status": "complete",
+                "experiment_name": experiment_name,
+                "experiment_id": experiment_id,
+                "parent_run_id": parent.info.run_id,
+                "tracking_uri": mlflow.get_tracking_uri(),
+                "retrieval_manifest_sha256": sha256(args.runs / "manifest.json"),
+                "analysis_manifest_sha256": sha256(args.runs / "analysis/manifest.json"),
+                "latency_manifest_sha256": sha256(args.latency / "manifest.json"),
+                "figures_manifest_sha256": sha256(args.figures / "manifest.json"),
+            }
+
+            args.receipt.parent.mkdir(parents=True, exist_ok=True)
+
+            with args.receipt.open("x", encoding="utf-8") as handle:
+                json.dump(receipt, handle, indent=2)
+                handle.write("\n")
 
         mlflow.log_artifact(
             __file__,
