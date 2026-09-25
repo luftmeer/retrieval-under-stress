@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/scripts/measure_latency.py", line 40, in <module>
-    raise ValueError("Commit the timing implementation and environment first")
-ValueError: Commit the timing implementation and environment first
