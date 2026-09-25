@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from threading import Lock
 from typing import Any
+import os
 
 from qdrant_client import QdrantClient
 
@@ -25,13 +26,38 @@ from retrieval_lab.retrieval.live import SearchSession
 
 @dataclass(frozen=True)
 class ApiSettings:
-    data_dir: Path = Path("data/processed/stress-test-v1/clean")
-    model_path: Path = Path("configs/dense-model.json")
+    data_dir: Path = Path(
+        "data/processed/stress-test-v1/clean"
+    )
+    model_path: Path = Path(
+        "configs/dense-model.json"
+    )
     qdrant_url: str = "http://localhost:6333"
 
     @property
     def qrels_path(self) -> Path:
         return self.data_dir / "qrels.tsv"
+
+    @classmethod
+    def from_env(cls) -> "ApiSettings":
+        return cls(
+            data_dir=Path(
+                os.environ.get(
+                    "RETRIEVAL_DATA_DIR",
+                    "data/processed/stress-test-v1/clean",
+                )
+            ),
+            model_path=Path(
+                os.environ.get(
+                    "RETRIEVAL_MODEL_PATH",
+                    "configs/dense-model.json",
+                )
+            ),
+            qdrant_url=os.environ.get(
+                "RETRIEVAL_QDRANT_URL",
+                "http://localhost:6333",
+            ),
+        )
 
 
 @dataclass

@@ -1,10 +1,90 @@
 services:
   qdrant:
     image: qdrant/qdrant:v1.18.2
+
     ports:
-      - 6333:6333
+      - "127.0.0.1:6333:6333"
+
     volumes:
       - qdrant_storage:/qdrant/storage
 
+  qdrant-ready:
+    image: python:3.11-slim
+
+    depends_on:
+      qdrant:
+        condition: service_started
+
+    command:
+      - python
+      - -c
+      - |
+        import time
+        from urllib.request import urlopen
+
+        url = "http://qdrant:6333/readyz"
+
+        for attempt in range(120):
+            try:
+                with urlopen(url, timeout=2) as response:
+                    if response.status == 200:
+                        print("Qdrant is ready")
+                        raise SystemExit(0)
+
+            except Exception as exc:
+                print(
+                    f"Waiting for Qdrant "
+                    f"({attempt + 1}/120): {exc}"
+                )
+
+            time.sleep(1)
+
+        raise SystemExit("Qdrant never became ready")
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+
+    depends_on:
+      qdrant-ready:
+        condition: service_completed_successfully
+
+    environment:
+      RETRIEVAL_DATA_DIR: /data/clean
+
+      RETRIEVAL_MODEL_PATH: >-
+        /app/configs/dense-model.json
+
+      RETRIEVAL_QDRANT_URL: >-
+        http://qdrant:6333
+
+      HF_HOME: /models/huggingface
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    volumes:
+      - ./data/processed/stress-test-v1/clean:/data/clean:ro
+      - huggingface_cache:/models/huggingface
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          from urllib.request import urlopen;
+          response = urlopen(
+          'http://127.0.0.1:8000/health',
+          timeout=3);
+          assert response.status == 200
+
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 300s
+
 volumes:
   qdrant_storage:
+  huggingface_cache:

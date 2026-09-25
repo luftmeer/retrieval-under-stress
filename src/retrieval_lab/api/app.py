@@ -27,7 +27,7 @@ def create_app(
     settings: ApiSettings | None = None,
     resource_factory: ResourceFactory = build_resources,
 ) -> FastAPI:
-    settings = settings or ApiSettings()
+    settings = settings or ApiSettings.from_env()
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
