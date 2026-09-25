@@ -60,7 +60,12 @@ def test_hybrid_runs_both_components_on_every_request(monkeypatch):
 
     def lexical_search(*args, **kwargs):
         calls.append("bm25")
-        return [SimpleNamespace(document_id="b")]
+        return [
+            SimpleNamespace(
+                document_id="b",
+                score=1.0,
+            )
+        ]
 
     def encode(*args, **kwargs):
         calls.append("encode")
@@ -68,7 +73,12 @@ def test_hybrid_runs_both_components_on_every_request(monkeypatch):
 
     def dense_search(*args, **kwargs):
         calls.append("dense")
-        return [{"document_id": "d"}]
+        return [
+            {
+                "document_id": "d",
+                "score": 1.0,
+            }
+        ]
 
     def fuse(lexical, dense, **kwargs):
         assert lexical == ["b"]
