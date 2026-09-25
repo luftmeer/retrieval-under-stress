@@ -1,0 +1,288 @@
+{
+  "aggregate": {
+    "mrr@10": 0.564,
+    "ndcg@10": 0.6106423162510344,
+    "recall@10": 0.76
+  },
+  "metadata": {
+    "aggregation": "arithmetic mean over all evaluation queries",
+    "evaluator": "retrieval-lab-metrics-v1",
+    "inputs": {
+      "corpus": {
+        "path": "data/processed/stress-test-v1/paraphrase/corpus.jsonl",
+        "sha256": "dec31c8182f3d744c7d2c09423756fd1d17cbef75808db13ba01cc0aab4d1ac6"
+      },
+      "qrels": {
+        "path": "data/processed/stress-test-v1/paraphrase/qrels.tsv",
+        "sha256": "67f569bbe9e1742cb3ecb2d80c13779b6f2d688df93f704df2f10b3102d197e3"
+      },
+      "queries": {
+        "path": "data/processed/stress-test-v1/paraphrase/queries.jsonl",
+        "sha256": "72bd53b9c82b63b2765aa61f46c8c238df9dd421040e37a9bb49d05c7c3160e0"
+      }
+    },
+    "k": 10,
+    "ndcg_discount": "log2(rank + 1)",
+    "ndcg_gain": "linear",
+    "queries": 50,
+    "ranking_policy": "preserve stored list order",
+    "relevance_threshold": 1,
+    "run_path": "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/quality/paraphrase-dense.json",
+    "run_sha256": "678cb24f4e30c9eb196cd91caef34e81518a4816d4684acbe279b0ed6e5e39a8",
+    "short_ranking_policy": "unreturned documents contribute zero",
+    "unjudged_policy": "zero gain; retain ranking position"
+  },
+  "per_query": {
+    "1014": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1062": {
+      "ndcg": 0.5,
+      "recall": 1.0,
+      "rr": 0.3333333333333333
+    },
+    "1110": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "1121": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "115": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1180": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "1185": {
+      "ndcg": 0.43067655807339306,
+      "recall": 1.0,
+      "rr": 0.25
+    },
+    "1187": {
+      "ndcg": 0.6309297535714575,
+      "recall": 1.0,
+      "rr": 0.5
+    },
+    "1202": {
+      "ndcg": 0.6309297535714575,
+      "recall": 1.0,
+      "rr": 0.5
+    },
+    "1204": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1259": {
+      "ndcg": 0.6309297535714575,
+      "recall": 1.0,
+      "rr": 0.5
+    },
+    "1274": {
+      "ndcg": 0.9325210919548239,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1278": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1335": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1336": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1337": {
+      "ndcg": 0.2890648263178879,
+      "recall": 1.0,
+      "rr": 0.1
+    },
+    "1382": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "1389": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "179": {
+      "ndcg": 0.9558295932317544,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "183": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "216": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "239": {
+      "ndcg": 0.2890648263178879,
+      "recall": 1.0,
+      "rr": 0.1
+    },
+    "248": {
+      "ndcg": 0.5,
+      "recall": 1.0,
+      "rr": 0.3333333333333333
+    },
+    "298": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "3": {
+      "ndcg": 0.5,
+      "recall": 1.0,
+      "rr": 0.3333333333333333
+    },
+    "303": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "314": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "384": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "385": {
+      "ndcg": 0.6934264036172708,
+      "recall": 1.0,
+      "rr": 0.5
+    },
+    "436": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "452": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "501": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "513": {
+      "ndcg": 0.6309297535714575,
+      "recall": 1.0,
+      "rr": 0.5
+    },
+    "527": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "535": {
+      "ndcg": 0.5,
+      "recall": 1.0,
+      "rr": 0.3333333333333333
+    },
+    "54": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "554": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "569": {
+      "ndcg": 0.3562071871080222,
+      "recall": 1.0,
+      "rr": 0.16666666666666666
+    },
+    "644": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "659": {
+      "ndcg": 0.43067655807339306,
+      "recall": 1.0,
+      "rr": 0.25
+    },
+    "660": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "716": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "823": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "831": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "rr": 0.0
+    },
+    "879": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "882": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "907": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "922": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "985": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "rr": 1.0
+    },
+    "993": {
+      "ndcg": 0.6309297535714575,
+      "recall": 1.0,
+      "rr": 0.5
+    }
+  },
+  "schema_version": 1
+}

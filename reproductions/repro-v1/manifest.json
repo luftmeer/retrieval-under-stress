@@ -1,0 +1,122 @@
+{
+  "error": "RuntimeError('Stage failed: latency; see /Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/logs/latency.log')",
+  "finished_at": "2026-09-25T08:55:08.319571+00:00",
+  "git_commit": "87e8564e757d8b93a77f19b5cdbad4663a0e422d",
+  "git_dirty": false,
+  "latency_environment": "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/configs/latency-environment.json",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.16 (main, Sep  1 2026, 14:08:22) [Clang 22.1.3 ]",
+  "source_sha256": {
+    "configs/dense-model.json": "a87c8550b49135c702a1865a2d7e1c6f03b9adaa0164cbe065871eaaf50f60f5",
+    "configs/latency-environment.json": "cabe8733da2449b004cb1b4e1a024c0243e59d32c2d0188f4209692ca1eb5142",
+    "configs/retrieval.yaml": "d9576f2afee05e959056425cfc284eb21047780bc7039f59c8b17b6b6d6c84fd",
+    "data/manifests/stress-test-freeze-v1.json": "24973e7b7d6f45199cabf6f284e83ef5a7752f9746e854293697c7da847a9725",
+    "data/manifests/stress-test-freeze-v1.sha256": "1a15912ba17cff47a05a6e30b4de7631dc186d01e3e9f3aec07394006b00a32c",
+    "pyproject.toml": "3c1c8d507d7f889f459a7edc8b42279e3f1b68c083e81763f8e5031d5dde8cd2",
+    "scripts/analyze_robustness.py": "3c87d84e306ce439b532a6a6bb05fcbca536edd8c9b87fe6bd75da8251c9a836",
+    "scripts/import_mlflow.py": "d6de18e283527110cf95409697c18ba2d8902fae172bdba0a17453c97adeaac0",
+    "scripts/make_figures.py": "dae661a601391913fb8d9b69fae5c354220860d06cc1d9a45c8083263f85df4a",
+    "scripts/make_figures.py.lock": "50e8bd1f687fc71872a80b9921fb9e4cab9906a892b5251b7945dd1305735656",
+    "scripts/measure_latency.py": "e01a209dec85431486a2600c88e5ebcb823bdbf8adbfdcf3456ad9a1ef985a2f",
+    "scripts/reproduce.py": "24061f044b092367a13cf565493bfbacf019dae9fc4d33a5cc2bc042f72352cc",
+    "scripts/run_final_matrix.py": "6719955cddaba62a113bee10487b0a7b3cf917ffdfa3ad9dcb6d455c278a3e90",
+    "scripts/select_cases.py": "f3ce777083405e53ece203149dceabe2cddcd4a025c3027c904f18a76726bea2",
+    "src/retrieval_lab/__init__.py": "9c1d8ad5046afa102f0a21d59553b020493a1ae7aa4562cbfd5516b456eab324",
+    "src/retrieval_lab/cli.py": "eae3fd2e6bc7d3dd8c57713c8ed670c24ea704fa4df7fdcfe531d5cd0c63c1f7",
+    "src/retrieval_lab/config.py": "b2d1cafc330b6f0552719231273aa5d52268cb3210cbe4dcf8de8f8d5d156d89",
+    "src/retrieval_lab/data/__init__.py": "a238195f84fd2be9f04c8248fb37ff054d52bdb894160efe43ee3e6ea14ed971",
+    "src/retrieval_lab/data/download.py": "e106ee9e39eacc01a7aab06732e2e69892cb42d4d67bcf9a4d3c9995160ba89a",
+    "src/retrieval_lab/data/loader.py": "67073639d03b47b09fc2d71a2752f99fe5671dddd249b069f2fab7184c459567",
+    "src/retrieval_lab/data/perturbations.py": "4a2b8270c11f485c03f8dd1cfa220b0ff164152ca2df00d4909a319d1aeecde9",
+    "src/retrieval_lab/dense_runs.py": "c19060d68f53537e2257c9cfdda41917f6f59117984b44099f1705b2dae543aa",
+    "src/retrieval_lab/diagnostics.py": "8b51ac4fb643bd38990c21357692a16758ba433f234df8a02b3e035b513fe6dd",
+    "src/retrieval_lab/evaluation.py": "3a9df8cee5bca62ee69d8514f0a0a36734799f97fbc117888c1d6ce4bc2c57be",
+    "src/retrieval_lab/hybrid_runs.py": "ece0f22f3433a58f5f3c68fa3f8c1120ffc94b716cdf9bd9eeaba4576816e531",
+    "src/retrieval_lab/metrics.py": "2fd09883fb54973fd44bad5e0b08cd1cb1455b7d0c8a9ea16da62a10224b03a3",
+    "src/retrieval_lab/perturbation_runs.py": "0ddf127d4b58a8624c93f88fc87588ec39204ac9905a5ecf284ab0b4beb4b162",
+    "src/retrieval_lab/retrieval/__init__.py": "8cd9634d46ed30b74448c4fd31ef0aa2c64a6cc0845a36892928e81d7313fa47",
+    "src/retrieval_lab/retrieval/bm25.py": "ff1641be8540493286be6691564855d056b07fe86bb790ccedd097806eeb3ae3",
+    "src/retrieval_lab/retrieval/dense.py": "bcc594c48ba885f5af089a7ac3d244193b0cc80fdf1298027607d60622061a6e",
+    "src/retrieval_lab/retrieval/live.py": "59db1c6e932556f507aaf94cf573a18309e871d9037d1af3ef09f90c483188c7",
+    "src/retrieval_lab/retrieval/rrf.py": "0233c1efa7b9464578a2f5af9da3e18563c578285809cf467a37d18138ab1ed8",
+    "src/retrieval_lab/robustness.py": "34c3ac4cc6aed0790b88c3556c63182065f48c08ab47602a8c4ff8d9a67ee053",
+    "src/retrieval_lab/runs.py": "8073b53435be8886c78f7fa630f897c8ca6d5de5b3ba43edbaf0e029b1864e54",
+    "tools/tracking/pyproject.toml": "641bf8c0243f37d2177d66406965ff7a56285fdb3eda6958c49a437d94cef70e",
+    "tools/tracking/uv.lock": "40a9d4cbf0f65f18fb552163a54b231abfad02ded4a33ba928c03b9a944d8cd3",
+    "uv.lock": "538fd5f98259f1355f0f272818cb1b478ae7da4b3beb262d2366d6e4548f867e"
+  },
+  "stages": [
+    {
+      "command": [
+        "uv",
+        "run",
+        "--locked",
+        "python",
+        "scripts/run_final_matrix.py",
+        "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/quality"
+      ],
+      "finished_at": "2026-09-25T08:55:04.074500+00:00",
+      "log": "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/logs/retrieval.log",
+      "log_sha256": "a136bdeb046afea413e934ffb6d4599fe9e251cea454a4452e277528cef30faf",
+      "name": "retrieval",
+      "returncode": 0,
+      "started_at": "2026-09-25T08:51:35.962162+00:00",
+      "status": "complete"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--locked",
+        "python",
+        "scripts/analyze_robustness.py",
+        "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/quality"
+      ],
+      "finished_at": "2026-09-25T08:55:05.972168+00:00",
+      "log": "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/logs/analysis.log",
+      "log_sha256": "f6b8f189c5ae603baf125ddf60df19525bee72b89a25b439d7866f2ed580376f",
+      "name": "analysis",
+      "returncode": 0,
+      "started_at": "2026-09-25T08:55:04.076388+00:00",
+      "status": "complete"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--locked",
+        "python",
+        "scripts/select_cases.py",
+        "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/quality"
+      ],
+      "finished_at": "2026-09-25T08:55:06.585097+00:00",
+      "log": "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/logs/case-selection.log",
+      "log_sha256": "2f41a6411e5391b27e3984df357be3ac849419e62bd5134f659830a071522f48",
+      "name": "case-selection",
+      "returncode": 0,
+      "started_at": "2026-09-25T08:55:05.973226+00:00",
+      "status": "complete"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--locked",
+        "python",
+        "scripts/measure_latency.py",
+        "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/quality",
+        "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/latency",
+        "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/configs/latency-environment.json"
+      ],
+      "finished_at": "2026-09-25T08:55:08.318649+00:00",
+      "log": "/Users/alexanderschmiedel/Projects/coding/retrieval-under-stress/reproductions/repro-v1/logs/latency.log",
+      "log_sha256": "9f0eca245e296d27a19a4224e44ca07fbd845b0fcb97d99463ad2e9ea8ed99ea",
+      "name": "latency",
+      "returncode": 1,
+      "started_at": "2026-09-25T08:55:06.587397+00:00",
+      "status": "failed"
+    }
+  ],
+  "started_at": "2026-09-25T08:51:35.929963+00:00",
+  "status": "failed"
+}
