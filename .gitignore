@@ -6,6 +6,7 @@ __pycache__/
 dist/
 .env
 .DS_STORE
+.tracking/
 
 data/raw/
 data/processed/
