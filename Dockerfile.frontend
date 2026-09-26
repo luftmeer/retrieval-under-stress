@@ -1,0 +1,28 @@
+FROM ghcr.io/astral-sh/uv:0.12.18 AS uv
+
+FROM python:3.11-slim
+
+COPY --from=uv /uv /uvx /bin/
+
+WORKDIR /app
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+COPY demo/pyproject.toml \
+     demo/uv.lock \
+     ./
+
+RUN uv sync \
+    --frozen \
+    --no-dev
+
+COPY demo/app.py ./
+COPY demo/api_client.py ./
+COPY demo/benchmark.py ./
+
+COPY demo/benchmark-v1.json ./
+COPY demo/benchmark-v1.sha256 ./
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0", "--server.port=8501", "--server.headless=true"]

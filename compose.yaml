@@ -85,6 +85,39 @@ services:
       retries: 10
       start_period: 300s
 
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+
+    depends_on:
+      api:
+        condition: service_healthy
+
+    environment:
+      RETRIEVAL_API_URL: http://api:8000
+      RETRIEVAL_DEMO_BUNDLE: /app/benchmark-v1.json
+
+    ports:
+      - "127.0.0.1:8501:8501"
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          from urllib.request import urlopen;
+          response = urlopen(
+          'http://127.0.0.1:8501/_stcore/health',
+          timeout=3);
+          assert response.status == 200
+
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
 volumes:
   qdrant_storage:
   huggingface_cache:

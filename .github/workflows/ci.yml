@@ -59,3 +59,18 @@ jobs:
             retrieval-under-stress-api:ci \
             python -c \
             "from retrieval_lab.api.app import app; print(app.title)"
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            --file Dockerfile.frontend \
+            --tag retrieval-under-stress-frontend:ci \
+            .
+
+      - name: Check frontend installation
+        run: |
+          docker run \
+            --rm \
+            retrieval-under-stress-frontend:ci \
+            python -c \
+            "import streamlit; print(streamlit.__version__)"
