@@ -1,0 +1,10 @@
+qdrant:
+  image: "qdrant/qdrant:v1.18.2"
+
+api:
+  image: retrieval-api:k8s-v2
+
+frontend:
+  resources:
+    requests:
+      memory: 768Mi

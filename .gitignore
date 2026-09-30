@@ -15,3 +15,6 @@ results/
 tracking/
 outputs/
 reproductions/
+
+deploy/rendered/
+deploy/evidence/

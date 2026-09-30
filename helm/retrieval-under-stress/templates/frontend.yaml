@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      automountServiceAccountToken: false
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 12 }}
+      {{- end }}
+      containers:
+        - name: frontend
+          image: {{ .Values.frontend.image | quote }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          command:
+            - /app/.venv/bin/python
+            - -m
+            - streamlit
+          args:
+            - run
+            - /app/app.py
+            - --server.address=0.0.0.0
+            - --server.port=8501
+            - --server.headless=true
+          ports:
+            - name: http
+              containerPort: 8501
+          env:
+            - name: RETRIEVAL_API_URL
+              value: http://api:8000
+            - name: RETRIEVAL_DEMO_BUNDLE
+              value: /app/benchmark-v1.json
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 16 }}
+          startupProbe:
+            httpGet:
+              path: /_stcore/health
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 6

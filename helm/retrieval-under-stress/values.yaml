@@ -1,0 +1,50 @@
+imagePullPolicy: IfNotPresent
+
+# Empty means omit storageClassName and use the cluster default.
+storageClass: ""
+
+nodeSelector: {}
+
+data:
+  image: retrieval-data:scifact-v1
+
+api:
+  image: retrieval-api:k8s-v1
+  resources:
+    requests:
+      cpu: "1"
+      memory: 2Gi
+      ephemeral-storage: 1Gi
+    limits:
+      cpu: "2"
+      memory: 4Gi
+      ephemeral-storage: 1Gi
+
+frontend:
+  image: retrieval-frontend:k8s-v1
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+      ephemeral-storage: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
+      ephemeral-storage: 512Mi
+
+qdrant:
+  # Supply the same pinned image used by your working Compose stack.
+  image: ""
+  storageSize: 10Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+      ephemeral-storage: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
+      ephemeral-storage: 512Mi
+
+modelCache:
+  storageSize: 10Gi

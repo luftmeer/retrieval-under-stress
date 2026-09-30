@@ -1,0 +1,6 @@
+FROM busybox:1.37.0
+
+COPY . /seed/clean/
+
+RUN test -s /seed/clean/qrels.tsv \
+    && chmod -R a+rX /seed

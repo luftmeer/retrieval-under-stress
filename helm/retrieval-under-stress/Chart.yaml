@@ -1,0 +1,6 @@
+apiVersion: v2
+name: retrieval-under-stress
+description: Local and cloud deployment of Retrieval Under Stress
+type: application
+version: 0.1.0
+appVersion: "k8s-v1"

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: retrieval-under-stress
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/luftmeer/retrieval-under-stress.git
+    targetRevision: feat/kubernetes
+    path: helm/retrieval-under-stress
+    helm:
+      releaseName: retrieval
+      valueFiles:
+        - values-kind.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: retrieval-gitops
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

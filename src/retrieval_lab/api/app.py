@@ -17,6 +17,8 @@ from retrieval_lab.api.service import (
     build_resources,
 )
 
+from retrieval_lab.api.probes import router as probes_router
+
 ResourceFactory = Callable[
     [ApiSettings],
     ApiResources,
@@ -45,6 +47,8 @@ def create_app(
         version="0.1.0",
         lifespan=lifespan,
     )
+    
+    app.include_router(probes_router)
 
     @app.get(
         "/health",

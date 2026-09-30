@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  progressDeadlineSeconds: 2400
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum | quote }}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        fsGroup: 10001
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 12 }}
+      {{- end }}
+
+      initContainers:
+        - name: copy-corpus
+          image: {{ .Values.data.image | quote }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          command:
+            - sh
+            - -ec
+            - cp -R /seed/clean/. /data/clean/
+          volumeMounts:
+            - name: corpus
+              mountPath: /data/clean
+
+        - name: wait-for-qdrant
+          image: {{ .Values.data.image | quote }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          command:
+            - sh
+            - -ec
+            - |
+              for attempt in $(seq 1 120); do
+                if wget -q -T 3 -O /dev/null \
+                  http://qdrant:6333/readyz; then
+                  exit 0
+                fi
+                echo "Waiting for Qdrant: attempt ${attempt}"
+                sleep 5
+              done
+              echo "Qdrant did not become ready" >&2
+              exit 1
+
+      containers:
+        - name: api
+          image: {{ .Values.api.image | quote }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          command:
+            - /app/.venv/bin/python
+            - -m
+            - uvicorn
+          args:
+            - retrieval_lab.api.app:app
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8000"
+            - --workers
+            - "1"
+          ports:
+            - name: http
+              containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: retrieval-config
+          resources:
+            {{- toYaml .Values.api.resources | nindent 16 }}
+          startupProbe:
+            httpGet:
+              path: /livez
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 180
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 6
+          volumeMounts:
+            - name: corpus
+              mountPath: /data/clean
+              readOnly: true
+            - name: model-cache
+              mountPath: /models
+
+      volumes:
+        - name: corpus
+          emptyDir: {}
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-cache
