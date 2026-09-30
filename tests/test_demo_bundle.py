@@ -4,32 +4,20 @@ from pathlib import Path
 
 
 def test_committed_demo_bundle_is_valid():
-    path = Path(
-        "demo/benchmark-v1.json"
-    )
+    path = Path("demo/benchmark-v1.json")
 
-    checksum_path = Path(
-        "demo/benchmark-v1.sha256"
-    )
+    checksum_path = Path("demo/benchmark-v1.sha256")
 
     assert path.is_file()
     assert checksum_path.is_file()
 
-    observed = hashlib.sha256(
-        path.read_bytes()
-    ).hexdigest()
+    observed = hashlib.sha256(path.read_bytes()).hexdigest()
 
-    expected = checksum_path.read_text(
-        encoding="utf-8"
-    ).strip()
+    expected = checksum_path.read_text(encoding="utf-8").strip()
 
     assert observed == expected
 
-    data = json.loads(
-        path.read_text(
-            encoding="utf-8"
-        )
-    )
+    data = json.loads(path.read_text(encoding="utf-8"))
 
     assert data["schema_version"] == 1
 

@@ -8,7 +8,6 @@ from retrieval_lab import robustness as r
 from retrieval_lab.data.loader import load_dataset
 from retrieval_lab.diagnostics import validated_matrix
 
-
 MAX_DEMO_RANK = 20
 SNIPPET_CHARS = 280
 
@@ -37,20 +36,14 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    root = Path(
-        "data/processed/stress-test-v1"
-    )
+    root = Path("data/processed/stress-test-v1")
 
     frozen, matrix = validated_matrix(
         root,
         args.runs,
     )
 
-    conditions = [
-        condition
-        for condition in r.CONDITIONS
-        if condition in matrix
-    ]
+    conditions = [condition for condition in r.CONDITIONS if condition in matrix]
 
     datasets = {
         condition: load_dataset(
@@ -62,10 +55,7 @@ def main() -> None:
 
     rankings = {
         condition: {
-            method: r.read_json(
-                args.runs
-                / f"{condition}-{method}.json"
-            )["results"]
+            method: r.read_json(args.runs / f"{condition}-{method}.json")["results"]
             for method in r.METHODS
         }
         for condition in conditions
@@ -87,9 +77,7 @@ def main() -> None:
         }
 
         required_documents.update(
-            document_id
-            for document_id, grade in qrels.items()
-            if grade > 0
+            document_id for document_id, grade in qrels.items() if grade > 0
         )
 
         for condition in conditions:
@@ -98,21 +86,15 @@ def main() -> None:
             if query_id not in dataset.queries:
                 continue
 
-            record["variants"][condition] = (
-                dataset.queries[query_id]
-            )
+            record["variants"][condition] = dataset.queries[query_id]
 
             record["metrics"][condition] = {}
             record["rankings"][condition] = {}
 
             for method in r.METHODS:
-                record["metrics"][condition][method] = (
-                    matrix[condition][method][query_id]
-                )
+                record["metrics"][condition][method] = matrix[condition][method][query_id]
 
-                hits = rankings[
-                    condition
-                ][method][query_id][:MAX_DEMO_RANK]
+                hits = rankings[condition][method][query_id][:MAX_DEMO_RANK]
 
                 compact_hits = [
                     {
@@ -123,14 +105,9 @@ def main() -> None:
                     for hit in hits
                 ]
 
-                record["rankings"][condition][method] = (
-                    compact_hits
-                )
+                record["rankings"][condition][method] = compact_hits
 
-                required_documents.update(
-                    hit["document_id"]
-                    for hit in compact_hits
-                )
+                required_documents.update(hit["document_id"] for hit in compact_hits)
 
         query_records[query_id] = record
 
@@ -154,17 +131,11 @@ def main() -> None:
         "candidate_depth": 100,
         "accepted_counts": frozen["accepted_counts"],
         "source": {
-            "retrieval_manifest_sha256": r.sha256(
-                args.runs / "manifest.json"
-            ),
+            "retrieval_manifest_sha256": r.sha256(args.runs / "manifest.json"),
             "analysis_manifest_sha256": r.sha256(
-                args.runs
-                / "analysis"
-                / "manifest.json"
+                args.runs / "analysis" / "manifest.json"
             ),
-            "freeze_manifest_sha256": r.sha256(
-                root / "manifest.json"
-            ),
+            "freeze_manifest_sha256": r.sha256(root / "manifest.json"),
         },
         "documents": documents,
         "queries": query_records,
@@ -190,9 +161,7 @@ def main() -> None:
 
     checksum = r.sha256(args.output)
 
-    checksum_path = args.output.with_suffix(
-        ".sha256"
-    )
+    checksum_path = args.output.with_suffix(".sha256")
 
     with checksum_path.open(
         "x",
@@ -200,10 +169,7 @@ def main() -> None:
     ) as handle:
         handle.write(checksum + "\n")
 
-    print(
-        f"Exported {len(query_records)} queries, "
-        f"{len(documents)} documents"
-    )
+    print(f"Exported {len(query_records)} queries, {len(documents)} documents")
 
     print(f"Bundle: {args.output}")
     print(f"SHA-256: {checksum}")

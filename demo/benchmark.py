@@ -4,7 +4,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 METHOD_NAMES = {
     "bm25": "BM25",
     "dense": "Dense",
@@ -21,71 +20,49 @@ CONDITION_NAMES = {
 
 
 def sha256(path: Path) -> str:
-    return hashlib.sha256(
-        path.read_bytes()
-    ).hexdigest()
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def load_bundle(path: Path) -> dict:
-    checksum_path = path.with_suffix(
-        ".sha256"
-    )
+    checksum_path = path.with_suffix(".sha256")
 
     if not path.is_file():
         raise FileNotFoundError(path)
 
     if checksum_path.is_file():
-        expected = checksum_path.read_text(
-            encoding="utf-8"
-        ).strip()
+        expected = checksum_path.read_text(encoding="utf-8").strip()
 
         observed = sha256(path)
 
         if observed != expected:
-            raise ValueError(
-                "Demo bundle checksum mismatch"
-            )
+            raise ValueError("Demo bundle checksum mismatch")
 
-    data = json.loads(
-        path.read_text(encoding="utf-8")
-    )
+    data = json.loads(path.read_text(encoding="utf-8"))
 
     if data.get("schema_version") != 1:
-        raise ValueError(
-            "Unsupported demo bundle schema"
-        )
+        raise ValueError("Unsupported demo bundle schema")
 
     if data.get("methods") != [
         "bm25",
         "dense",
         "hybrid",
     ]:
-        raise ValueError(
-            "Unexpected retrieval methods"
-        )
+        raise ValueError("Unexpected retrieval methods")
 
     if "clean" not in data.get(
         "conditions",
         [],
     ):
-        raise ValueError(
-            "Demo bundle has no clean condition"
-        )
+        raise ValueError("Demo bundle has no clean condition")
 
     if not data.get("queries"):
-        raise ValueError(
-            "Demo bundle contains no queries"
-        )
+        raise ValueError("Demo bundle contains no queries")
 
     return data
 
 
 def stress_conditions(bundle: dict) -> list[str]:
-    return [
-        condition
-        for condition in bundle["conditions"]
-        if condition != "clean"
-    ]
+    return [condition for condition in bundle["conditions"] if condition != "clean"]
 
 
 def query_ids_for_condition(
@@ -94,8 +71,7 @@ def query_ids_for_condition(
 ) -> list[str]:
     return [
         query_id
-        for query_id, record
-        in bundle["queries"].items()
+        for query_id, record in bundle["queries"].items()
         if condition in record["variants"]
     ]
 

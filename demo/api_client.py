@@ -19,23 +19,15 @@ def request_json(
     headers = {}
 
     if payload is not None:
-        body = json.dumps(payload).encode(
-            "utf-8"
-        )
+        body = json.dumps(payload).encode("utf-8")
 
-        headers["Content-Type"] = (
-            "application/json"
-        )
+        headers["Content-Type"] = "application/json"
 
     request = Request(
         url,
         data=body,
         headers=headers,
-        method=(
-            "POST"
-            if payload is not None
-            else "GET"
-        ),
+        method=("POST" if payload is not None else "GET"),
     )
 
     try:
@@ -51,16 +43,10 @@ def request_json(
         except Exception:
             detail = exc.reason
 
-        raise ApiClientError(
-            f"API returned HTTP "
-            f"{exc.code}: {detail}"
-        ) from exc
+        raise ApiClientError(f"API returned HTTP {exc.code}: {detail}") from exc
 
     except URLError as exc:
-        raise ApiClientError(
-            f"Cannot reach retrieval API: "
-            f"{exc.reason}"
-        ) from exc
+        raise ApiClientError(f"Cannot reach retrieval API: {exc.reason}") from exc
 
 
 def health(base_url: str) -> dict:

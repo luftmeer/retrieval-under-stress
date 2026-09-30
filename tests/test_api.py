@@ -1,11 +1,11 @@
-import pytest
 from pathlib import Path
+
+import pytest
 from fastapi.testclient import TestClient
 
 from retrieval_lab.api.app import create_app
-from retrieval_lab.api.service import ApiResources
+from retrieval_lab.api.service import ApiResources, ApiSettings
 from retrieval_lab.data.loader import Dataset, Document
-from retrieval_lab.api.service import ApiSettings
 
 
 class FakeSession:
@@ -205,7 +205,6 @@ def test_invalid_requests_are_rejected(
     assert response.status_code == 422
 
 
-
 def test_api_settings_read_environment(
     monkeypatch,
 ) -> None:
@@ -226,17 +225,13 @@ def test_api_settings_read_environment(
 
     assert settings.data_dir == Path("/data/clean")
 
-    assert settings.model_path == Path(
-        "/app/configs/dense-model.json"
-    )
+    assert settings.model_path == Path("/app/configs/dense-model.json")
 
     assert settings.qdrant_url == "http://qdrant:6333"
 
-    assert settings.qrels_path == Path(
-        "/data/clean/qrels.tsv"
-    )
-    
-    
+    assert settings.qrels_path == Path("/data/clean/qrels.tsv")
+
+
 def test_api_settings_have_local_defaults(
     monkeypatch,
 ) -> None:
@@ -255,10 +250,6 @@ def test_api_settings_have_local_defaults(
 
     settings = ApiSettings.from_env()
 
-    assert settings.data_dir == Path(
-        "data/processed/stress-test-v1/clean"
-    )
+    assert settings.data_dir == Path("data/processed/stress-test-v1/clean")
 
-    assert settings.qdrant_url == (
-        "http://localhost:6333"
-    )
+    assert settings.qdrant_url == ("http://localhost:6333")

@@ -5,7 +5,6 @@ from itertools import combinations
 from pathlib import Path
 
 import streamlit as st
-
 from api_client import (
     ApiClientError,
     health,
@@ -20,7 +19,6 @@ from benchmark import (
     relevant_ranks,
     stress_conditions,
 )
-
 
 HERE = Path(__file__).resolve().parent
 
@@ -51,9 +49,7 @@ def cached_bundle(
 ) -> dict:
     del modified_ns
 
-    return load_bundle(
-        Path(path)
-    )
+    return load_bundle(Path(path))
 
 
 bundle = cached_bundle(
@@ -83,10 +79,7 @@ with st.sidebar:
             api_health["documents"],
         )
 
-        st.caption(
-            "Dense model: "
-            + api_health["model_id"]
-        )
+        st.caption("Dense model: " + api_health["model_id"])
 
     except ApiClientError as exc:
         st.error("API offline")
@@ -97,27 +90,19 @@ with st.sidebar:
 
     st.subheader("Experiment")
 
-    st.write(
-        f"Candidate depth: "
-        f"**{bundle['candidate_depth']}**"
-    )
+    st.write(f"Candidate depth: **{bundle['candidate_depth']}**")
 
-    st.write(
-        f"RRF constant: "
-        f"**{bundle['rrf_k']}**"
-    )
+    st.write(f"RRF constant: **{bundle['rrf_k']}**")
 
-    st.write(
-        "Metric cutoff: **10**"
-    )
+    st.write("Metric cutoff: **10**")
 
     st.caption(
         "The robustness explorer uses frozen "
         "benchmark evidence rather than rerunning "
         "the experiment."
     )
-    
-    
+
+
 SCORE_LABELS = {
     "bm25": "BM25 score",
     "dense": "Cosine similarity",
@@ -135,10 +120,7 @@ def render_live_hits(
 
     for hit in hits:
         with st.container(border=True):
-            st.markdown(
-                f"**#{hit['rank']} — "
-                f"{hit['title'] or 'Untitled'}**"
-            )
+            st.markdown(f"**#{hit['rank']} — {hit['title'] or 'Untitled'}**")
 
             st.caption(
                 f"Document {hit['document_id']} · "
@@ -158,30 +140,18 @@ def ranking_overlap(
         results,
         2,
     ):
-        left_ids = {
-            hit["document_id"]
-            for hit in results[left]["hits"]
-        }
+        left_ids = {hit["document_id"] for hit in results[left]["hits"]}
 
-        right_ids = {
-            hit["document_id"]
-            for hit in results[right]["hits"]
-        }
+        right_ids = {hit["document_id"] for hit in results[right]["hits"]}
 
         rows.append(
             {
-                "Comparison": (
-                    f"{METHOD_NAMES[left]} ↔ "
-                    f"{METHOD_NAMES[right]}"
-                ),
-                "Shared documents": len(
-                    left_ids & right_ids
-                ),
+                "Comparison": (f"{METHOD_NAMES[left]} ↔ {METHOD_NAMES[right]}"),
+                "Shared documents": len(left_ids & right_ids),
             }
         )
 
     return rows
-
 
 
 live_tab, robustness_tab = st.tabs(
@@ -202,9 +172,7 @@ with live_tab:
     with st.form("live-search"):
         query = st.text_input(
             "Query",
-            value=(
-                "What causes cellular inflammation?"
-            ),
+            value=("What causes cellular inflammation?"),
         )
 
         method = st.radio(
@@ -214,9 +182,7 @@ with live_tab:
                 "bm25",
                 "dense",
             ],
-            format_func=lambda value: (
-                METHOD_NAMES[value]
-            ),
+            format_func=lambda value: METHOD_NAMES[value],
             horizontal=True,
         )
 
@@ -238,11 +204,7 @@ with live_tab:
         )
 
     if submitted:
-        methods = (
-            ["bm25", "dense", "hybrid"]
-            if compare_all
-            else [method]
-        )
+        methods = ["bm25", "dense", "hybrid"] if compare_all else [method]
 
         results = {}
 
@@ -256,27 +218,20 @@ with live_tab:
                         top_k=top_k,
                     )
 
-            st.session_state[
-                "live_results"
-            ] = results
+            st.session_state["live_results"] = results
 
-            st.session_state[
-                "live_query"
-            ] = query
+            st.session_state["live_query"] = query
 
         except ApiClientError as exc:
             st.error(str(exc))
 
-    results = st.session_state.get(
-        "live_results"
-    )
+    results = st.session_state.get("live_results")
 
     if results:
         st.divider()
 
         st.caption(
-            "Raw score magnitudes are comparable "
-            "within a method, not across methods."
+            "Raw score magnitudes are comparable within a method, not across methods."
         )
 
         if len(results) > 1:
@@ -288,12 +243,7 @@ with live_tab:
                 use_container_width=True,
             )
 
-        tabs = st.tabs(
-            [
-                METHOD_NAMES[method]
-                for method in results
-            ]
-        )
+        tabs = st.tabs([METHOD_NAMES[method] for method in results])
 
         for tab, (
             selected_method,
@@ -307,7 +257,7 @@ with live_tab:
                     selected_method,
                     result["hits"],
                 )
-                
+
 with robustness_tab:
     st.subheader("Robustness explorer")
 
@@ -322,28 +272,18 @@ with robustness_tab:
     condition = st.selectbox(
         "Stress condition",
         conditions,
-        format_func=lambda value: (
-            CONDITION_NAMES[value]
-        ),
+        format_func=lambda value: CONDITION_NAMES[value],
     )
 
-    available_queries = (
-        query_ids_for_condition(
-            bundle,
-            condition,
-        )
+    available_queries = query_ids_for_condition(
+        bundle,
+        condition,
     )
 
     def query_label(query_id: str) -> str:
-        text = bundle[
-            "queries"
-        ][query_id]["variants"]["clean"]
+        text = bundle["queries"][query_id]["variants"]["clean"]
 
-        short = (
-            text
-            if len(text) <= 90
-            else text[:87] + "..."
-        )
+        short = text if len(text) <= 90 else text[:87] + "..."
 
         return f"{query_id} — {short}"
 
@@ -362,14 +302,10 @@ with robustness_tab:
     )
 
     record = bundle["queries"][query_id]
-    
-    clean_text = record[
-        "variants"
-    ]["clean"]
 
-    stressed_text = record[
-        "variants"
-    ][condition]
+    clean_text = record["variants"]["clean"]
+
+    stressed_text = record["variants"][condition]
 
     left, right = st.columns(2)
 
@@ -379,24 +315,18 @@ with robustness_tab:
         st.info(clean_text)
 
     with right:
-        st.markdown(
-            f"#### {CONDITION_NAMES[condition]}"
-        )
+        st.markdown(f"#### {CONDITION_NAMES[condition]}")
 
         st.warning(stressed_text)
-        
+
     st.markdown("### Retrieval quality")
 
     metric_rows = []
 
     for method in bundle["methods"]:
-        clean_metrics = record[
-            "metrics"
-        ]["clean"][method]
+        clean_metrics = record["metrics"]["clean"][method]
 
-        stressed_metrics = record[
-            "metrics"
-        ][condition][method]
+        stressed_metrics = record["metrics"][condition][method]
 
         metric_rows.append(
             {
@@ -410,8 +340,7 @@ with robustness_tab:
                     3,
                 ),
                 "nDCG loss": round(
-                    clean_metrics["ndcg"]
-                    - stressed_metrics["ndcg"],
+                    clean_metrics["ndcg"] - stressed_metrics["ndcg"],
                     3,
                 ),
                 "Clean Recall@10": round(
@@ -439,35 +368,20 @@ with robustness_tab:
         use_container_width=True,
     )
 
-    st.caption(
-        "Positive nDCG loss means quality "
-        "decreased after perturbation."
-    )
-    
-    
-    st.markdown(
-        "### Ranking changes"
-    )
+    st.caption("Positive nDCG loss means quality decreased after perturbation.")
 
-    method_tabs = st.tabs(
-        [
-            METHOD_NAMES[method]
-            for method in bundle["methods"]
-        ]
-    )
+    st.markdown("### Ranking changes")
+
+    method_tabs = st.tabs([METHOD_NAMES[method] for method in bundle["methods"]])
 
     for method_tab, method in zip(
         method_tabs,
         bundle["methods"],
     ):
         with method_tab:
-            clean_hits = record[
-                "rankings"
-            ]["clean"][method][:display_k]
+            clean_hits = record["rankings"]["clean"][method][:display_k]
 
-            stressed_hits = record[
-                "rankings"
-            ][condition][method][:display_k]
+            stressed_hits = record["rankings"][condition][method][:display_k]
 
             clean_relevant = relevant_ranks(
                 clean_hits,
@@ -479,22 +393,15 @@ with robustness_tab:
                 record,
             )
 
-            summary_left, summary_right = (
-                st.columns(2)
-            )
+            summary_left, summary_right = st.columns(2)
 
             with summary_left:
                 st.metric(
                     "Relevant ranks — clean",
                     (
-                        ", ".join(
-                            map(str, clean_relevant)
-                        )
+                        ", ".join(map(str, clean_relevant))
                         if clean_relevant
-                        else (
-                            f"none in top "
-                            f"{display_k}"
-                        )
+                        else (f"none in top {display_k}")
                     ),
                 )
 
@@ -502,21 +409,13 @@ with robustness_tab:
                 st.metric(
                     "Relevant ranks — stressed",
                     (
-                        ", ".join(
-                            map(str, stressed_relevant)
-                        )
+                        ", ".join(map(str, stressed_relevant))
                         if stressed_relevant
-                        else (
-                            f"none in top "
-                            f"{display_k}"
-                        )
+                        else (f"none in top {display_k}")
                     ),
                 )
-                
-                
-            clean_column, stressed_column = (
-                st.columns(2)
-            )
+
+            clean_column, stressed_column = st.columns(2)
 
             def render_saved_ranking(
                 column,
@@ -524,70 +423,37 @@ with robustness_tab:
                 heading,
             ):
                 with column:
-                    st.markdown(
-                        f"#### {heading}"
-                    )
+                    st.markdown(f"#### {heading}")
 
                     for hit in hits:
-                        document_id = hit[
-                            "document_id"
-                        ]
+                        document_id = hit["document_id"]
 
-                        document = bundle[
-                            "documents"
-                        ][document_id]
+                        document = bundle["documents"][document_id]
 
                         is_relevant = relevant(
                             record,
                             document_id,
                         )
 
-                        marker = (
-                            "✅"
-                            if is_relevant
-                            else "•"
-                        )
+                        marker = "✅" if is_relevant else "•"
 
-                        title = (
-                            document["title"]
-                            or "Untitled"
-                        )
+                        title = document["title"] or "Untitled"
 
-                        with st.container(
-                            border=True
-                        ):
-                            st.markdown(
-                                f"{marker} "
-                                f"**#{hit['rank']} "
-                                f"{title}**"
-                            )
+                        with st.container(border=True):
+                            st.markdown(f"{marker} **#{hit['rank']} {title}**")
 
-                            label = (
-                                SCORE_LABELS[method]
-                            )
+                            label = SCORE_LABELS[method]
 
                             st.caption(
-                                f"Document "
-                                f"{document_id} · "
-                                f"{label}: "
-                                f"{hit['score']:.5f}"
+                                f"Document {document_id} · {label}: {hit['score']:.5f}"
                             )
 
                             if is_relevant:
-                                grade = record[
-                                    "qrels"
-                                ][document_id]
+                                grade = record["qrels"][document_id]
 
-                                st.success(
-                                    "Judged relevant "
-                                    f"(grade {grade})"
-                                )
+                                st.success(f"Judged relevant (grade {grade})")
 
-                            st.write(
-                                document[
-                                    "snippet"
-                                ]
-                            )
+                            st.write(document["snippet"])
 
             render_saved_ranking(
                 clean_column,
@@ -598,7 +464,5 @@ with robustness_tab:
             render_saved_ranking(
                 stressed_column,
                 stressed_hits,
-                CONDITION_NAMES[
-                    condition
-                ],
+                CONDITION_NAMES[condition],
             )

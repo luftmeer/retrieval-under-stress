@@ -6,7 +6,6 @@ from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-
 METHODS = ("bm25", "dense", "hybrid")
 
 
@@ -38,7 +37,7 @@ def request_json(
 
     except HTTPError as exc:
         return exc.code, json.load(exc)
-    
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -51,9 +50,7 @@ def main() -> None:
     parser.add_argument(
         "--data-dir",
         type=Path,
-        default=Path(
-            "data/processed/stress-test-v1/clean"
-        ),
+        default=Path("data/processed/stress-test-v1/clean"),
     )
 
     parser.add_argument(
@@ -64,75 +61,50 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    status, health = request_json(
-        f"{args.base_url}/health"
-    )
+    status, health = request_json(f"{args.base_url}/health")
 
     if status != 200:
-        raise RuntimeError(
-            f"Health check failed: {status}"
-        )
+        raise RuntimeError(f"Health check failed: {status}")
 
     corpus_size = sum(
         1
-        for line in (
-            args.data_dir / "corpus.jsonl"
-        ).read_text(encoding="utf-8").splitlines()
+        for line in (args.data_dir / "corpus.jsonl")
+        .read_text(encoding="utf-8")
+        .splitlines()
         if line.strip()
     )
 
     if health["documents"] != corpus_size:
-        raise ValueError(
-            "API corpus size does not match frozen corpus"
-        )
+        raise ValueError("API corpus size does not match frozen corpus")
 
     if health["methods"] != list(METHODS):
-        raise ValueError(
-            "API exposes unexpected retrieval methods"
-        )
+        raise ValueError("API exposes unexpected retrieval methods")
 
     queries = {
         row["_id"]: row["text"]
         for row in map(
             json.loads,
-            (
-                args.data_dir / "queries.jsonl"
-            ).read_text(
-                encoding="utf-8"
-            ).splitlines(),
+            (args.data_dir / "queries.jsonl").read_text(encoding="utf-8").splitlines(),
         )
     }
 
     runs = {
         method: json.loads(
-            (
-                args.runs
-                / f"clean-{method}.json"
-            ).read_text(encoding="utf-8")
+            (args.runs / f"clean-{method}.json").read_text(encoding="utf-8")
         )
         for method in METHODS
     }
 
-    common = set.intersection(
-        *(
-            set(run["results"])
-            for run in runs.values()
-        )
-    )
+    common = set.intersection(*(set(run["results"]) for run in runs.values()))
 
     if not common:
-        raise ValueError(
-            "Benchmark runs share no query IDs"
-        )
+        raise ValueError("Benchmark runs share no query IDs")
 
     query_id = sorted(common)[0]
     query = queries[query_id]
 
     for method in METHODS:
-        expected = [
-            hit["document_id"]
-            for hit in runs[method]["results"][query_id][:10]
-        ]
+        expected = [hit["document_id"] for hit in runs[method]["results"][query_id][:10]]
 
         status, body = request_json(
             f"{args.base_url}/search",
@@ -144,14 +116,9 @@ def main() -> None:
         )
 
         if status != 200:
-            raise RuntimeError(
-                f"{method} search returned HTTP {status}"
-            )
+            raise RuntimeError(f"{method} search returned HTTP {status}")
 
-        observed = [
-            hit["document_id"]
-            for hit in body["hits"]
-        ]
+        observed = [hit["document_id"] for hit in body["hits"]]
 
         if observed != expected:
             raise ValueError(
@@ -161,27 +128,15 @@ def main() -> None:
                 f"observed={observed}"
             )
 
-        ranks = [
-            hit["rank"]
-            for hit in body["hits"]
-        ]
+        ranks = [hit["rank"] for hit in body["hits"]]
 
-        if ranks != list(
-            range(1, len(ranks) + 1)
-        ):
-            raise ValueError(
-                f"{method}: invalid ranks"
-            )
+        if ranks != list(range(1, len(ranks) + 1)):
+            raise ValueError(f"{method}: invalid ranks")
 
         if len(observed) != len(set(observed)):
-            raise ValueError(
-                f"{method}: duplicate documents"
-            )
+            raise ValueError(f"{method}: duplicate documents")
 
-        print(
-            f"{method:<7} MATCH "
-            f"{query_id} top-{len(observed)}"
-        )
+        print(f"{method:<7} MATCH {query_id} top-{len(observed)}")
 
     status, _ = request_json(
         f"{args.base_url}/search",
@@ -193,9 +148,7 @@ def main() -> None:
     )
 
     if status != 422:
-        raise ValueError(
-            f"Invalid request returned {status}, expected 422"
-        )
+        raise ValueError(f"Invalid request returned {status}, expected 422")
 
     print()
     print("Container API smoke test passed.")

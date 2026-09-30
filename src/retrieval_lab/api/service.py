@@ -2,11 +2,11 @@
 
 import hashlib
 import json
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from threading import Lock
 from typing import Any
-import os
 
 from qdrant_client import QdrantClient
 
@@ -26,12 +26,8 @@ from retrieval_lab.retrieval.live import SearchSession
 
 @dataclass(frozen=True)
 class ApiSettings:
-    data_dir: Path = Path(
-        "data/processed/stress-test-v1/clean"
-    )
-    model_path: Path = Path(
-        "configs/dense-model.json"
-    )
+    data_dir: Path = Path("data/processed/stress-test-v1/clean")
+    model_path: Path = Path("configs/dense-model.json")
     qdrant_url: str = "http://localhost:6333"
 
     @property
