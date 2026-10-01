@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 
+from retrieval_lab.api.probes import router as probes_router
 from retrieval_lab.api.schemas import (
     HealthResponse,
     SearchHit,
@@ -16,8 +17,6 @@ from retrieval_lab.api.service import (
     ApiSettings,
     build_resources,
 )
-
-from retrieval_lab.api.probes import router as probes_router
 
 ResourceFactory = Callable[
     [ApiSettings],
@@ -47,7 +46,7 @@ def create_app(
         version="0.1.0",
         lifespan=lifespan,
     )
-    
+
     app.include_router(probes_router)
 
     @app.get(
@@ -96,7 +95,9 @@ def create_app(
             document = resources.dataset.documents.get(document_id)
 
             if document is None:
-                raise RuntimeError(f"Retriever returned unknown document {document_id!r}")
+                raise RuntimeError(
+                    f"Retriever returned unknown document {document_id!r}"
+                )
 
             hits.append(
                 SearchHit(

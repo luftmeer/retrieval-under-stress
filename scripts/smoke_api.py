@@ -104,7 +104,9 @@ def main() -> None:
     query = queries[query_id]
 
     for method in METHODS:
-        expected = [hit["document_id"] for hit in runs[method]["results"][query_id][:10]]
+        expected = [
+            hit["document_id"] for hit in runs[method]["results"][query_id][:10]
+        ]
 
         status, body = request_json(
             f"{args.base_url}/search",

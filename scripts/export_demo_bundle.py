@@ -92,7 +92,9 @@ def main() -> None:
             record["rankings"][condition] = {}
 
             for method in r.METHODS:
-                record["metrics"][condition][method] = matrix[condition][method][query_id]
+                record["metrics"][condition][method] = matrix[condition][method][
+                    query_id
+                ]
 
                 hits = rankings[condition][method][query_id][:MAX_DEMO_RANK]
 

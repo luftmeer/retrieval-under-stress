@@ -113,7 +113,9 @@ def typo_variants(query_id: str, text: str) -> list[dict]:
                 "review_note": ("" if eligible else "Too few eligible words"),
                 "edits": applied,
                 "edit_count": len(applied),
-                "edited_token_fraction": (len(applied) / len(tokens) if tokens else 0.0),
+                "edited_token_fraction": (
+                    len(applied) / len(tokens) if tokens else 0.0
+                ),
                 "flagged": any(
                     edit["after"] in PROTECTED or edit["after"] in original_words
                     for edit in applied

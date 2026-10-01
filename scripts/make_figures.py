@@ -111,7 +111,9 @@ def load_inputs(runs, latency):
         condition
         for condition in CONDITIONS
         if analysis["query_ids"].get(condition)
-        and not (condition == "paraphrase" and len(analysis["query_ids"][condition]) < 30)
+        and not (
+            condition == "paraphrase" and len(analysis["query_ids"][condition]) < 30
+        )
     ]
 
     summary = indexed(

@@ -67,7 +67,11 @@ def test_hybrid_run_preserves_structure_and_provenance(
     assert run["metadata"]["fusion"]["rrf_k"] == 60
     assert run["results"]["q02"] == []
 
-    assert [hit["document_id"] for hit in run["results"]["q01"]] == ["d02", "d01", "d04"]
+    assert [hit["document_id"] for hit in run["results"]["q01"]] == [
+        "d02",
+        "d01",
+        "d04",
+    ]
 
     assert run["metadata"]["source_runs"]["bm25"]["sha256"] == (
         hashlib.sha256(bm25.read_bytes()).hexdigest()

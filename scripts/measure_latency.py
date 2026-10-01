@@ -47,7 +47,9 @@ for condition in r.CONDITIONS:
     if condition not in matrix:
         continue
 
-    lines = (root / condition / "queries.jsonl").read_text(encoding="utf-8").splitlines()
+    lines = (
+        (root / condition / "queries.jsonl").read_text(encoding="utf-8").splitlines()
+    )
 
     texts = {row["_id"]: row["text"] for row in map(json.loads, lines)}
 
@@ -195,7 +197,10 @@ try:
 
         document_ids = sorted(dataset.documents)
         vectors = encoder.encode(
-            [dataset.documents[document_id].search_text for document_id in document_ids],
+            [
+                dataset.documents[document_id].search_text
+                for document_id in document_ids
+            ],
             batch_size=32,
             convert_to_numpy=True,
             normalize_embeddings=True,
@@ -243,7 +248,9 @@ try:
     write_csv("latency.csv", rows)
     write_csv("latency-summary.csv", summary)
 
-    state["output_sha256"] = {path.name: r.sha256(path) for path in output.glob("*.csv")}
+    state["output_sha256"] = {
+        path.name: r.sha256(path) for path in output.glob("*.csv")
+    }
     state["status"] = "complete"
 
 except BaseException as exc:

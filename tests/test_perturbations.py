@@ -118,7 +118,8 @@ def sources(tmp_path: Path) -> tuple[Path, Path]:
 
     qrels = root / "qrels.tsv"
     qrels.write_text(
-        "query-id\tcorpus-id\tscore\n" + "".join(f"q{i:02}\td1\t1\n" for i in range(35)),
+        "query-id\tcorpus-id\tscore\n"
+        + "".join(f"q{i:02}\td1\t1\n" for i in range(35)),
         encoding="utf-8",
     )
 

@@ -74,7 +74,9 @@ def download_scifact(output_dir: Path) -> Path:
             "downloaded_at_utc": downloaded_at,
             "split": "test",
             "archive_sha256": sha256_file(archive_path),
-            "file_sha256": {name: sha256_file(staged / name) for name in REQUIRED_FILES},
+            "file_sha256": {
+                name: sha256_file(staged / name) for name in REQUIRED_FILES
+            },
             "counts": {
                 "documents": len(dataset.documents),
                 "queries": len(dataset.queries),

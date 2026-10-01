@@ -293,7 +293,10 @@ def freeze_review(
         ):
             files[f"{condition}/{filename}"] = digest(folder / filename)
 
-        if files[f"{condition}/corpus.jsonl"] != expected["metadata"]["inputs"]["corpus"]:
+        if (
+            files[f"{condition}/corpus.jsonl"]
+            != expected["metadata"]["inputs"]["corpus"]
+        ):
             raise ValueError("Corpus changed while exporting")
 
     current = {

@@ -224,7 +224,9 @@ def main():
             {
                 "execution_kind": "saved_evidence_import",
                 "retrieval_manifest_sha256": sha256(args.runs / "manifest.json"),
-                "analysis_manifest_sha256": sha256(args.runs / "analysis/manifest.json"),
+                "analysis_manifest_sha256": sha256(
+                    args.runs / "analysis/manifest.json"
+                ),
                 "latency_manifest_sha256": sha256(args.latency / "manifest.json"),
                 "figures_manifest_sha256": sha256(args.figures / "manifest.json"),
             }
@@ -260,7 +262,9 @@ def main():
 
                 mlflow.log_artifact(
                     str(directory / relative),
-                    artifact_path=(Path("evidence") / stage / relative.parent).as_posix(),
+                    artifact_path=(
+                        Path("evidence") / stage / relative.parent
+                    ).as_posix(),
                 )
 
         if args.receipt is not None:
@@ -271,7 +275,9 @@ def main():
                 "parent_run_id": parent.info.run_id,
                 "tracking_uri": mlflow.get_tracking_uri(),
                 "retrieval_manifest_sha256": sha256(args.runs / "manifest.json"),
-                "analysis_manifest_sha256": sha256(args.runs / "analysis/manifest.json"),
+                "analysis_manifest_sha256": sha256(
+                    args.runs / "analysis/manifest.json"
+                ),
                 "latency_manifest_sha256": sha256(args.latency / "manifest.json"),
                 "figures_manifest_sha256": sha256(args.figures / "manifest.json"),
             }

@@ -13,7 +13,9 @@ def test_fixture_integrity() -> None:
 
     queries = [
         json.loads(line)
-        for line in (FIXTURES / "queries.jsonl").read_text(encoding="utf-8").splitlines()
+        for line in (FIXTURES / "queries.jsonl")
+        .read_text(encoding="utf-8")
+        .splitlines()
     ]
 
     doc_ids = {row["_id"] for row in documents}
