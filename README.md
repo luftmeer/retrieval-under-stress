@@ -236,3 +236,208 @@ Regenerating the bundle changes the artifact used by the demo. Keep the benchmar
 ## Current scope
 
 The project focuses on query perturbation robustness for BM25, dense retrieval, and RRF-based hybrid retrieval on SciFact. It does not generate answers, use an LLM to judge relevance, or allow the explorer to modify the benchmark configuration.
+
+
+## Kubernetes deployment
+
+The application can run on Kubernetes using a Helm chart. The deployment
+includes the FastAPI retrieval service, Streamlit explorer, and Qdrant.
+
+Docker Compose remains available for local development.
+
+### Deployment status
+
+- Local deployment with kind and Helm is working.
+- Deployment to Google Kubernetes Engine is in progress and has not yet
+  completed end-to-end validation.
+
+### Architecture
+
+| Component | Kubernetes resource | Purpose |
+|---|---|---|
+| FastAPI | Deployment and Service | Serve BM25, dense, and hybrid searches |
+| Streamlit | Deployment and Service | Provide Live Search and the Robustness Explorer |
+| Qdrant | StatefulSet and Services | Store and search document embeddings |
+| Qdrant storage | PersistentVolumeClaim | Preserve the collection across Pod replacement |
+| Model cache | PersistentVolumeClaim | Reuse downloaded model files |
+| Frozen corpus | Data image and init container | Populate a read-only corpus volume for the API |
+| API configuration | ConfigMap | Configure data paths and service addresses |
+
+The API runs with one replica and one Uvicorn worker. During startup,
+it loads the corpus and model and initializes or reuses the fingerprinted
+Qdrant collection.
+
+The frontend accesses the API through its internal Kubernetes Service.
+The Robustness Explorer continues to read the frozen benchmark bundle.
+
+### Requirements
+
+- Docker
+- kind
+- kubectl
+- Helm
+- The prepared corpus in `data/processed/stress-test-v1/clean`
+- The pinned model configuration in `configs/dense-model.json`
+- The frontend benchmark bundle and its checksum
+- A pinned Qdrant image in
+  `helm/retrieval-under-stress/values-kind.yaml`
+
+The first startup requires internet access to download uncached model
+files and container images.
+
+### Run locally with kind
+
+From the repository root, create a cluster if it does not already exist:
+
+```bash
+kind create cluster --name retrieval-stress --wait 120s
+```
+
+Build the application images:
+
+```bash
+docker build \
+  --file Dockerfile.api \
+  --tag retrieval-api:k8s-v1 \
+  .
+
+docker build \
+  --file Dockerfile.frontend \
+  --tag retrieval-frontend:k8s-v1 \
+  .
+
+docker build \
+  --file deploy/Dockerfile.data \
+  --tag retrieval-data:scifact-v1 \
+  data/processed/stress-test-v1/clean
+```
+
+The data image uses the clean dataset directory as its build context.
+
+Load the images into kind:
+
+```bash
+kind load docker-image \
+  retrieval-api:k8s-v1 \
+  retrieval-frontend:k8s-v1 \
+  retrieval-data:scifact-v1 \
+  --name retrieval-stress
+```
+
+The image references in the chart's values files must match these tags.
+
+Validate and install the chart:
+
+```bash
+helm lint helm/retrieval-under-stress \
+  -f helm/retrieval-under-stress/values-kind.yaml
+
+helm upgrade --install retrieval \
+  helm/retrieval-under-stress \
+  --kube-context kind-retrieval-stress \
+  --namespace retrieval-stress \
+  --create-namespace \
+  -f helm/retrieval-under-stress/values-kind.yaml \
+  --wait \
+  --timeout 40m
+```
+
+Inspect the deployment:
+
+```bash
+kubectl --context kind-retrieval-stress \
+  get pods,services,pvc \
+  -n retrieval-stress
+```
+
+Forward the frontend to your machine:
+
+```bash
+kubectl --context kind-retrieval-stress \
+  port-forward \
+  -n retrieval-stress \
+  service/frontend \
+  18501:8501
+```
+
+Open http://127.0.0.1:18501.
+
+### Startup and health checks
+
+The API's init containers copy the frozen corpus and wait for Qdrant.
+The API then loads its resources and builds or reuses the retrieval index.
+
+Cold initialization can take several minutes. Subsequent starts reuse
+the persisted model cache and a matching, complete Qdrant collection.
+
+| Endpoint | Purpose |
+|---|---|
+| `/livez` | Check whether the API process can respond |
+| `/readyz` | Check resource initialization and expected collection size |
+| `/health` | Report application and index metadata |
+
+A startup probe allows time for initialization. Readiness checks exclude
+an unavailable API instance from Service traffic. Liveness checks assess
+the API independently of Qdrant availability.
+
+To inspect API startup:
+
+```bash
+kubectl --context kind-retrieval-stress \
+  logs deployment/api \
+  -n retrieval-stress \
+  -c api \
+  --follow
+```
+
+### Deployment acceptance checks
+
+After installation, verify that:
+
+- BM25, dense, and hybrid searches return results.
+- The Streamlit explorer displays live and frozen benchmark results.
+- Replacing the Qdrant Pod preserves the collection.
+- Restarting the API reuses the existing collection.
+- A Qdrant outage makes the API unready without causing an API restart loop.
+- Readiness recovers when Qdrant becomes available again.
+
+### Scope and limitations
+
+This configuration is a single-instance learning deployment. It does not
+provide application-level high availability, automatic horizontal scaling,
+or multi-region failover.
+
+The API uses the `Recreate` update strategy, so API updates introduce
+temporary downtime. Scaling the API requires revisiting index
+initialization and model-cache access.
+
+Kubernetes deploys the serving application. It does not modify the frozen
+benchmark, recompute reported metrics, or replace the reproduction workflow.
+
+### Cleanup
+
+Remove the Helm release:
+
+```bash
+helm uninstall retrieval \
+  --kube-context kind-retrieval-stress \
+  --namespace retrieval-stress
+```
+
+The model-cache PVC and StatefulSet-created Qdrant PVC are retained.
+
+To remove the deployment's remaining resources, including those PVCs:
+
+```bash
+kubectl --context kind-retrieval-stress \
+  delete namespace retrieval-stress
+```
+
+To remove the entire local cluster:
+
+```bash
+kind delete cluster --name retrieval-stress
+```
+
+Deleting the namespace or cluster removes the corresponding persisted
+deployment data.
